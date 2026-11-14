@@ -33,3 +33,13 @@ Whilst parsing command on line 3: Unknown or incomplete command
 |T20–T22|UNVERIFIED|2–8명 동시 접속 시험 필요|
 
 정적 검사와 서버 파싱은 게임 플레이 PASS가 아니다. 실제 테스트 절차는 `TEST_PLAN.md`를 따른다.
+
+## 1.0.2 후속 검토 수정
+
+|항목|상태|근거|
+|---|---|---|
+|P0 stale proxy|FIXED (구조)|매 tick spawn/3 tick retention을 제거하고, 입력 전에 모든 persistent proxy를 갱신한다. `/reload` 시 이전 proxy도 제거한다. 실제 이동 사격은 UNVERIFIED.|
+|P1 entity rate|FIXED (구조)|6개/player persistent proxy만 유지한다. 8명에서 48개이며 기존 960 spawn/s는 없다. MSPT와 렌더링은 UNVERIFIED.|
+|P1 rocket reload|FIXED (정적)|`tf_fire` 의존성을 제거하고 rocket-only `tf_rk_fired`로 바꿨다. 실제 hotbar 전환 시험은 UNVERIFIED.|
+|P1 first death|FIXED (정적)|`tf_deaths_seen=0`에서 시작하고 통계 점수가 최초 생성된 뒤에만 mirror를 갱신한다. 실제 사망/재접속은 UNVERIFIED.|
+|P1 muzzle clipping|FIXED (구조)|눈 앞 0.25/0.50/0.75 block을 검사해 막힌 경우 앞쪽으로 projectile를 소환하지 않는다. point-blank 폭발 체감은 UNVERIFIED.|

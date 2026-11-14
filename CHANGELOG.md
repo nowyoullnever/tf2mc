@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 — 2026-11-14
+
+- Replaced per-tick, three-tick-retained player collision arrows with six persistent owner-bound probes per player.
+- Proxy positions now update for all players before fire input is processed; stale/offline probes are removed.
+- Separated rocket reload interruption into the rocket-only `tf_rk_fired` state.
+- Added first-death-safe score handling and a three-point rocket muzzle wall check.
+- Added static regressions for stale proxy patterns and global reload interruption.
+
 ## 1.0.1 — 2026-11-14
 
 - Fixed the official-server parsing failure in rocket substeps and validated the complete pack with the official Java 26.3 dedicated server.

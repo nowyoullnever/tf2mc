@@ -1,10 +1,12 @@
 # Per-player work is sequential. Temporary tags are always removed before the next player.
 execute as @a at @s run function tfmini:player/init
 execute as @a at @s run function tfmini:player/update
+execute as @a at @s run function tfmini:player/proxy/ensure
+tag @e[type=minecraft:arrow,tag=tfmini_hitbox] remove tfmini_proxy_owner_online
+execute as @e[type=minecraft:arrow,tag=tfmini_hitbox] run function tfmini:player/proxy/update
+kill @e[type=minecraft:arrow,tag=tfmini_hitbox,tag=!tfmini_proxy_owner_online]
 execute as @a at @s if predicate tfmini:fire_held run function tfmini:input/fire
 execute as @a at @s run function tfmini:weapon/sniper/update
 execute as @a at @s run function tfmini:weapon/rocket/reload
 execute as @e[type=minecraft:arrow,tag=tfmini_rocket] at @s run function tfmini:weapon/rocket/tick
-execute as @e[type=minecraft:arrow,tag=tfmini_hitbox] run scoreboard players add @s tf_head_age 1
-kill @e[type=minecraft:arrow,tag=tfmini_hitbox,scores={tf_head_age=3..}]
 execute as @a[scores={tf_debug=1..}] at @s run function tfmini:ui/debug

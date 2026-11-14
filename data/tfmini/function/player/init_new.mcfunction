@@ -14,6 +14,8 @@ scoreboard players set @s tf_sn_scope 0
 scoreboard players set @s tf_sn_use 0
 scoreboard players set @s tf_rk_cd 0
 scoreboard players set @s tf_rk_reload 0
+scoreboard players set @s tf_rk_fired 0
+scoreboard players set @s tf_rk_muzzle 0
 scoreboard players set @s tf_md_heal 0
 scoreboard players set @s tf_fire 0
 scoreboard players set @s tf_debug 0
@@ -23,7 +25,9 @@ scoreboard players set @s tf_ray_type 0
 scoreboard players set @s tf_ray_damage 0
 scoreboard players set @s tf_ray_head 0
 scoreboard players set @s tf_alive 1
-scoreboard players operation @s tf_deaths_seen = @s tf_deaths
+# Statistics can be absent until their first event. Start the mirror at an
+# explicit zero; the first generated death score then triggers exactly once.
+scoreboard players set @s tf_deaths_seen 0
 scoreboard players set @s tf_move 0
 scoreboard players set @s tf_px 0
 scoreboard players set @s tf_py 0

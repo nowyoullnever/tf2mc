@@ -26,7 +26,7 @@ try:
     if meta.get("min_format") != [121, 0] or meta.get("max_format") != [121, 0]: errors.append("pack.mcmeta must pin min/max format to [121, 0]")
 except Exception as exc: errors.append(f"invalid pack metadata: {exc}")
 
-required_objectives = {"tf_init","tf_weapon","tf_mg_ammo","tf_mg_cd","tf_mg_reload","tf_sn_ammo","tf_sn_cd","tf_sn_reload","tf_sn_charge","tf_sn_scope","tf_sn_use","tf_rk_ammo","tf_rk_cd","tf_rk_reload","tf_md_heal","tf_fire","tf_player_id","tf_debug","tf_ray_step","tf_ray_hit","tf_ray_type","tf_ray_damage","tf_ray_head","tf_move","tf_px","tf_py","tf_pz","tf_lpx","tf_lpy","tf_lpz","tf_spread_y"}
+required_objectives = {"tf_init","tf_weapon","tf_mg_ammo","tf_mg_cd","tf_mg_reload","tf_sn_ammo","tf_sn_cd","tf_sn_reload","tf_sn_charge","tf_sn_scope","tf_sn_use","tf_rk_ammo","tf_rk_cd","tf_rk_reload","tf_rk_fired","tf_rk_muzzle","tf_md_heal","tf_fire","tf_player_id","tf_debug","tf_ray_step","tf_ray_hit","tf_ray_type","tf_ray_damage","tf_ray_head","tf_move","tf_px","tf_py","tf_pz","tf_lpx","tf_lpy","tf_lpz","tf_spread_y"}
 load = (ROOT / "data/tfmini/function/load.mcfunction").read_text(encoding="utf-8") if (ROOT / "data/tfmini/function/load.mcfunction").exists() else ""
 declared = set(re.findall(r"scoreboard objectives add ([a-z0-9_]+)", load))
 errors.extend(f"missing scoreboard declaration: {name}" for name in sorted(required_objectives - declared))
@@ -55,6 +55,19 @@ for path in ROOT.rglob("*.mcfunction"):
             errors.append(f"invalid standalone execute subcommand in {path.relative_to(ROOT)}:{number}")
         if "tfmini:ray:start" in line:
             errors.append(f"invalid function identifier in {path.relative_to(ROOT)}:{number}")
+        if "tfmini_new_proxy" in line:
+            errors.append(f"stale per-tick proxy pattern in {path.relative_to(ROOT)}:{number}")
+
+rocket_reload = (ROOT / "data/tfmini/function/weapon/rocket/reload.mcfunction").read_text(encoding="utf-8")
+rocket_shot = (ROOT / "data/tfmini/function/weapon/rocket/shot.mcfunction").read_text(encoding="utf-8")
+if "tf_fire" in rocket_reload:
+    errors.append("rocket reload depends on global tf_fire rather than rocket-only state")
+if "tf_rk_fired" not in rocket_shot:
+    errors.append("rocket shot does not set rocket-only reload interruption state")
+
+proxy_update = ROOT / "data/tfmini/function/player/proxy/update.mcfunction"
+if not proxy_update.is_file() or "tfmini_proxy_owner_online" not in proxy_update.read_text(encoding="utf-8"):
+    errors.append("persistent player-proxy owner cleanup is missing")
 
 fire = json.loads((ROOT / "data/tfmini/predicate/fire_held.json").read_text(encoding="utf-8")) if (ROOT / "data/tfmini/predicate/fire_held.json").exists() else {}
 if fire.get("type") != "minecraft:entity_properties" or fire.get("predicate", {}).get("minecraft:type_specific/player", {}).get("input", {}).get("sprint") is not True:
