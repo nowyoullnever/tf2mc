@@ -4,7 +4,7 @@ Minecraft Java Edition **26.3**, 데이터팩 형식 **121.0**용 서버 전용 
 
 ## 설치
 
-1. `tf-mini-weapons-1.0.5.zip`을 월드의 `datapacks` 폴더에 압축을 풀지 않고 넣는다.
+1. `tf-mini-weapons-1.1.0.zip`을 월드의 `datapacks` 폴더에 압축을 풀지 않고 넣는다.
 2. 싱글플레이에서는 월드를 다시 열거나 `/reload`를 실행한다. Realms에서는 월드를 내려받아 `datapacks`에 넣은 뒤 월드를 다시 업로드한다.
 3. 채팅에 `[TF Mini] loaded`가 표시되는지 확인한다.
 4. 관리자는 `/team join RED <player>` 또는 `/team join BLU <player>`로 참가자를 배정한다.
@@ -21,6 +21,23 @@ Minecraft Java Edition **26.3**, 데이터팩 형식 **121.0**용 서버 전용 
 
 - `/function tfmini:admin/reset` — 이 팩이 만든 로켓과 헤드 히트박스만 제거한다.
 - `/function tfmini:admin/debug_on`, `/function tfmini:admin/debug_off` — 실행자 개인의 상태 출력.
+
+## 매치 관리 (v1.1.0 후보)
+
+관리자 권한으로만 실행한다.
+
+```mcfunction
+/function tfmini:game/start {minutes:5}
+/function tfmini:game/start {minutes:10}
+/function tfmini:game/pause
+/function tfmini:game/resume
+/function tfmini:game/end
+/function tfmini:game/status
+```
+
+`start`는 1–60 정수 분만 받고, RED·BLU의 비관전자 참가자가 각각 한 명 이상 있어야 한다. 매치 중에는 시작 시 등록된 participant만 datapack 무기를 쓸 수 있다. 시작 시 cooldown/reload/charge 같은 transient state만 초기화하며 ammunition, inventory, 위치, vanilla lifetime statistic은 바꾸지 않는다. pause는 timer, 무기 입력·cooldown·reload, Medi Gun, marker rocket 이동/충돌을 함께 멈춘다. `/reload`는 global state와 남은 tick을 보존한다.
+
+Wind Charge rocket jump은 아직 Rocket Launcher에 연결되지 않았다. `/function tfmini:weapon/rocket/wind/poc`는 실제 native Wind Charge 충돌을 관측하기 위한 독립 실험이며, survival client knockback 검증 전에는 match combat에 영향을 주지 않는다.
 
 ## 싱글플레이 더미와 측정
 

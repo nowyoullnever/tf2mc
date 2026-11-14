@@ -1,0 +1,2 @@
+execute if entity @e[type=minecraft:wind_charge,tag=tfmini_wind_poc] run tellraw @s {"text":"[TF Mini] Wind POC charge is still present; no collision/burst has been proven.","color":"red"}
+execute unless entity @e[type=minecraft:wind_charge,tag=tfmini_wind_poc] run tellraw @s {"text":"[TF Mini] No tagged Wind POC charge remains. Observe client knockback/log evidence before treating this as a pass.","color":"yellow"}

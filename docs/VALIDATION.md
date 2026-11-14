@@ -64,6 +64,18 @@ Whilst parsing command on line 3: Unknown or incomplete command
 
 서버 로딩과 `/reload`은 명령 문법/참조 확인일 뿐 hitscan damage, healing 또는 particle의 게임 플레이 PASS가 아니다.
 
+## 1.1.0 match management · Wind Charge POC
+
+|항목|상태|근거|
+|---|---|---|
+|V110-01|PASS|`python tools/validate.py .` 구조·match objective·function reference 검사 통과|
+|V110-02|PASS|Mojang 공식 Java 26.3 dedicated server start 및 RCON `reload` 완료, parse error 없음|
+|V110-03|PASS|RCON에서 state=IDLE 생성, `{minutes:0}` 및 player 없는 `{minutes:5}` start 뒤에도 `#match tf_g_state=0` 유지|
+|V110-04|UNVERIFIED|eligible RED/BLU player가 있는 valid start, 6000/12000 tick timer, pause/resume, bossbar, expiry/manual results|
+|V110-05|UNVERIFIED|playerKillCount 기반 K/D, damage attribution, disconnected roster, 2–8명 team total|
+|V110-06|BLOCKED|real survival client의 native Wind Charge collision/burst/knockback/cleanup proof 없음 — rocket integration을 의도적으로 보류|
+|V110-07|BLOCKED|rocket jump, <=1 HP self damage, fall-damage/interactive-block measurement은 V110-06 선행 proof 필요|
+
 ## 1.0.5 marker rocket direction fix
 
 |항목|상태|근거|

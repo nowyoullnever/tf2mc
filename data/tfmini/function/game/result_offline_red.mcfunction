@@ -1,0 +1,1 @@
+tellraw @a [{"text":"OFFLINE RED #","color":"red"},{"score":{"name":"@s","objective":"tf_owner"},"color":"red"},{"text":"  K ","color":"gray"},{"score":{"name":"@s","objective":"tf_g_round_k"},"color":"white"},{"text":"  D ","color":"gray"},{"score":{"name":"@s","objective":"tf_g_round_d"},"color":"white"}]

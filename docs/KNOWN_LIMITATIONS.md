@@ -9,3 +9,6 @@
 - test dummy head/body collision, 8–14/14–20 sniper damage, minigun 2 damage, rocket 9/6/3 LOS 및 friendly-fire 차단은 서버 파서만 통과했다. 실제 클라이언트 관측은 UNVERIFIED다.
 - dummy `Health`는 실제 entity NBT지만 바닐라 damage immunity, armor/effect과 damage type에 의해 기대한 수치보다 적게 감소할 수 있다.
 - Realms, 2–8명 동시 사용, TPS/MSPT, armor/Resistance, minigun damage-cooldown 상호작용, 킬 귀속은 UNVERIFIED다.
+- v1.1.0 match의 valid start, pause/resume, timer expiry, `/reload` 중 active state 복구, bossbar visibility, playerKillCount attribution, offline roster, simultaneous participants는 실제 client/multiplayer로 검증하지 못했다. 서버에서는 invalid/no-eligible start가 state=IDLE을 보존하는 경로와 parser만 확인했다.
+- `minecraft:wind_charge` POC는 native entity를 생성할 뿐, 실제 collision burst·knockback·entity cleanup·block interaction을 client에서 관측하지 못했다. 따라서 wind burst는 Rocket Launcher에 연결되지 않았고 rocket jumping, 0–1 HP self-damage, fall-damage mitigation은 BLOCKED다.
+- POC가 실제 burst를 내더라도 door, trapdoor, button, lever, fence gate, bell 및 fragile decoration의 native interaction은 별도 실험이 필요하다. gamerule을 바꾸거나 map block interaction을 숨기는 fallback은 구현하지 않았다.

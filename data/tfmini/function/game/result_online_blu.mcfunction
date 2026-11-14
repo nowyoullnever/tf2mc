@@ -1,0 +1,1 @@
+tellraw @a [{"selector":"@s","color":"aqua"},{"text":"  K ","color":"gray"},{"score":{"name":"@s","objective":"tf_g_round_k"},"color":"white"},{"text":"  D ","color":"gray"},{"score":{"name":"@s","objective":"tf_g_round_d"},"color":"white"}]

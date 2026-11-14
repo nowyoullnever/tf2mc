@@ -43,6 +43,12 @@
 |A38|UNVERIFIED|발사 직후 mouse를 반대 방향으로 움직여도 marker trajectory가 바뀌지 않는지 확인|
 |A39|UNVERIFIED|벽/유효 대상 첫 충돌에서만 폭발하고, 여러 동시 rocket의 방향·owner가 서로 섞이지 않는지 확인|
 |A40|UNVERIFIED|muzzle 0.25/0.50/0.75 block을 막아도 ammo가 줄지 않고 cooldown/reload interruption이 생기지 않는지 확인|
+|M01|UNVERIFIED|`start {minutes:5}` 뒤 6000 tick 설정|
+|M02|UNVERIFIED|`start {minutes:10}` 뒤 12000 tick 설정|
+|M03–M05|PARTIAL|0분·무참가·active match start 거부는 일부 server state 검사만 수행; 실제 admin chat/client는 미관측|
+|M06–M10|UNVERIFIED|pause/resume, reload, timer expiry, manual end, results once|
+|M11–M18|UNVERIFIED|player K/D, dummy 제외, disconnect roster, draw/winner, paused combat freeze|
+|W01–W22|BLOCKED|native Wind Charge POC의 survival collision/knockback proof가 없어 rocket integration 전부 보류|
 
 ## 권장 실제 테스트 순서
 

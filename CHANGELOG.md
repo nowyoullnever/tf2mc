@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 — 2026-11-14
+
+- Added a global IDLE/RUNNING/PAUSED match state, macro-based 1–60 minute start command, countdown bossbar, participant gating, persistent roster markers, round kill/death baselines, team totals, and end results.
+- Added pause/resume gating for datapack weapon input, timers, reload/cooldown updates, healing, and marker rockets.
+- Added a standalone native `minecraft:wind_charge` proof-of-concept and dedicated survival-client test procedure.
+- Wind burst/rocket-jump integration is intentionally not enabled: no real client knockback proof has been recorded, so custom rocket damage and the stable marker projectile remain unchanged.
+
 ## 1.0.5 — 2026-11-14
 
 - Replaced logical rocket arrows with rotation-stable `minecraft:marker` projectiles.

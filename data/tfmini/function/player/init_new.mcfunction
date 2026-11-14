@@ -39,6 +39,12 @@ scoreboard players set @s tf_lpx 0
 scoreboard players set @s tf_lpy 0
 scoreboard players set @s tf_lpz 0
 scoreboard players set @s tf_spread_y 0
+scoreboard players set @s tf_g_base_k 0
+scoreboard players set @s tf_g_base_d 0
+scoreboard players set @s tf_g_round_k 0
+scoreboard players set @s tf_g_round_d 0
+scoreboard players set @s tf_g_team 0
+scoreboard players set @s tf_g_participant 0
 execute store result score @s tf_lpx run data get entity @s Pos[0] 100
 execute store result score @s tf_lpy run data get entity @s Pos[1] 100
 execute store result score @s tf_lpz run data get entity @s Pos[2] 100
