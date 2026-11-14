@@ -27,7 +27,21 @@ scoreboard objectives add tf_life dummy
 scoreboard objectives add tf_los dummy
 scoreboard objectives add tf_head_age dummy
 scoreboard objectives add tf_rk_damage dummy
-scoreboard players set #next_player tf_player_id 0
+scoreboard objectives add tf_sn_use dummy
+scoreboard objectives add tf_alive dummy
+scoreboard objectives add tf_deaths minecraft.custom:minecraft.deaths
+scoreboard objectives add tf_deaths_seen dummy
+scoreboard objectives add tf_exploded dummy
+scoreboard objectives add tf_move dummy
+scoreboard objectives add tf_px dummy
+scoreboard objectives add tf_py dummy
+scoreboard objectives add tf_pz dummy
+scoreboard objectives add tf_lpx dummy
+scoreboard objectives add tf_lpy dummy
+scoreboard objectives add tf_lpz dummy
+scoreboard objectives add tf_spread_y dummy
+# add 0 creates the fake player only when absent; never reset assigned player IDs on /reload.
+scoreboard players add #next_player tf_player_id 0
 scoreboard players set #six tf_ray_damage 6
 scoreboard players set #forty tf_ray_damage 40
 team add RED

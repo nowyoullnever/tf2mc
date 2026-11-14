@@ -1,11 +1,11 @@
 # 테스트 계획 및 결과
 
-상태 규칙: **PASS**는 실제 Minecraft Java 26.3에서 관찰된 경우만 사용한다. 이 배포물은 로컬 서버를 실행하지 못했으므로 정적 검사 외 모든 게임 항목은 UNVERIFIED 또는 BLOCKED다.
+상태 규칙: **PASS**는 실제 Minecraft Java 26.3에서 관찰된 경우만 사용한다. 1.0.1은 공식 서버에서 시작 로드와 RCON `/reload`를 PASS로 확인했다. 클라이언트 전투 항목은 UNVERIFIED 또는 BLOCKED다. 상세 로그는 `VALIDATION.md`를 본다.
 
 |ID|상태|검사 방법|
 |---|---|---|
-|A01|UNVERIFIED|26.3 월드에 ZIP 설치 후 데이터팩 목록 확인|
-|A02|UNVERIFIED|`/reload` 후 로그의 데이터팩 오류 확인|
+|A01|PASS|공식 26.3 dedicated server가 월드의 데이터팩을 자동 로드|
+|A02|PASS|공식 26.3 dedicated server에서 RCON `/reload` 완료, 파싱 오류 없음|
 |A03|UNVERIFIED|F 홀드 중 `tf_fire`와 탄약 감소 관찰|
 |A04|UNVERIFIED|F 해제 직후 탄약 감소가 멈추는지 확인|
 |A05|UNVERIFIED|태그 없는 4개 바닐라 아이템이 작동하지 않는지 확인|

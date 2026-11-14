@@ -9,7 +9,10 @@ scoreboard players operation @s tf_ray_damage /= #forty tf_ray_damage
 scoreboard players add @s tf_ray_damage 8
 scoreboard players set @s tf_ray_type 2
 tag @s add tfmini_ray_source
-execute anchored eyes positioned ^ ^ ^0.2 run function tfmini:ray/start
+execute if score @s tf_sn_scope matches 1 anchored eyes positioned ^ ^ ^0.2 run function tfmini:ray/start
+execute unless score @s tf_sn_scope matches 1 run execute store result score @s tf_ray_head run random value 0..6
+execute unless score @s tf_sn_scope matches 1 run execute store result score @s tf_spread_y run random value 0..6
+execute unless score @s tf_sn_scope matches 1 run function tfmini:ray/spread/sniper_unscoped
 tag @s remove tfmini_ray_source
 scoreboard players set @s tf_sn_charge 0
 playsound minecraft:entity.lightning_bolt.thunder player @s ~ ~ ~ 0.25 1.8

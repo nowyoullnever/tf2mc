@@ -5,3 +5,4 @@ function tfmini:weapon/rocket/area_blu_2
 scoreboard players set @s tf_rk_damage 3
 function tfmini:weapon/rocket/area_blu_3
 tag @a remove tfmini_explosion_done
+tag @e[type=minecraft:arrow,tag=tfmini_hitbox] remove tfmini_explosion_probe_done
