@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.5 — 2026-11-14
+
+- Replaced logical rocket arrows with rotation-stable `minecraft:marker` projectiles.
+- Captured shooter Rotation exactly once at firing, then moved every marker in two explicit `execute at @s` 0.4-block substeps per tick.
+- Replaced arrow Owner/`execute on origin` attribution with persistent `tf_owner` ↔ `tf_player_id` matching.
+- Added smoke beside the flame trail and prevented muzzle-obstructed shots from consuming ammo, starting cooldown, or interrupting reload.
+
 ## 1.0.4 — 2026-11-14
 
 - Added wall-bounded, existing-ray Minigun (`crit`) and Sniper (`end_rod`) tracers with scoreboard-modulo density controls.

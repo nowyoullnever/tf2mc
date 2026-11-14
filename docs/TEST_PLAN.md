@@ -39,6 +39,10 @@
 |A34|UNVERIFIED|dummy rocket direct/splash 9/6/3과 solid-cover 차단을 Health로 확인|
 |A35|UNVERIFIED|동료 dummy가 Minigun/Sniper/Rocket 피해를 받지 않는지 확인|
 |A36|UNVERIFIED|Medi Gun F hold/release 및 teammate 우선·self-only 2 HP/s를 확인|
+|A37|UNVERIFIED|North/South/East/West/up/down 각각으로 rocket을 발사해 crosshair 방향, 0.8 block/tick 직진, 고정 Rotation을 확인|
+|A38|UNVERIFIED|발사 직후 mouse를 반대 방향으로 움직여도 marker trajectory가 바뀌지 않는지 확인|
+|A39|UNVERIFIED|벽/유효 대상 첫 충돌에서만 폭발하고, 여러 동시 rocket의 방향·owner가 서로 섞이지 않는지 확인|
+|A40|UNVERIFIED|muzzle 0.25/0.50/0.75 block을 막아도 ammo가 줄지 않고 cooldown/reload interruption이 생기지 않는지 확인|
 
 ## 권장 실제 테스트 순서
 
@@ -47,6 +51,14 @@
 3. A03–A19를 순서대로 수행한다. 서버 로그와 화면 녹화로 tick 수를 기록한다.
 4. 4명이 동시에 20초간 미니건·로켓을 사용한 뒤 `/function tfmini:admin/reset` 전후의 `@e[tag=tfmini_rocket]` 수를 비교한다.
 5. rocket jump은 시험 범위가 아니다. Levitation 또는 대체 movement effect를 시험하지 않는다.
+
+## Marker 로켓 방향 시험
+
+1. 빈 테스트 월드에서 RED 또는 BLU 팀으로 참가하고 Rocket Launcher를 지급한다. 각 방향을 향해 F를 한 번만 누르고 projectile trail을 기록한다.
+2. North, South, East, West, straight up, straight down 각각에서 crosshair 방향과 같은 직선으로 이동하는지 확인한다. 발사 직후 mouse를 반대 방향으로 움직여도 궤도가 변하면 FAIL이다.
+3. 각 방향에서 벽과 enemy dummy를 따로 배치한다. 첫 solid block 또는 유효 target에서만 한 번 폭발해야 한다.
+4. 두 플레이어가 서로 다른 방향으로 동시에 발사한다. marker trail, 피해 귀속, RED/BLU friendly-fire 차단이 독립적인지 확인한다.
+5. 0.25, 0.50, 0.75 block 위치를 solid block으로 막고 F를 누른다. `tf_rk_ammo`, `tf_rk_cd`, `tf_rk_reload`가 발사 전 상태와 같아야 한다.
 
 ## 더미 단독 시험 명령
 

@@ -24,7 +24,9 @@
 
 ## 로켓과 치유
 
-로켓은 `execute summon … run`으로 방금 생성된 무중력 화살에 즉시 소유자·팀·회전·수명을 기록한다. 0.4 블록씩 두 번 이동해 0.8 블록/tick으로 만들며, 폭발 상태가 설정된 뒤 제거되어 중복 이동·피해가 발생하지 않는다. 일반 폭발 명령을 사용하지 않아 지형·화재를 만들지 않는다.
+로켓은 `execute summon … run`으로 방금 생성된 `minecraft:marker`에 즉시 팀·수명·발사자 ID와 shooter `Rotation`을 기록한다. marker Rotation은 이후 수정하지 않는다. 매 tick의 두 substep은 각각 `execute at @s run tp @s ^ ^ ^0.4`로 marker 자신의 고정 회전과 현재 위치를 사용하므로, 발사 뒤 사수의 카메라를 읽지 않는다. 각 이동·블록·대상 충돌 검사 전에도 `at @s`로 위치를 새로 잡는다. flame/smoke trail과 폭발도 marker의 실제 위치에서만 표시한다.
+
+`tf_owner`에는 발사 시점의 `tf_player_id`를 저장한다. 폭발 피해는 marker의 `tf_owner`와 online player의 `tf_player_id`가 같은 경우에만 해당 player를 `/damage ... by` source로 사용한다. arrow `Owner` NBT와 `execute on origin`에는 의존하지 않는다. 폭발 상태가 설정된 뒤 marker를 제거하므로 중복 폭발하지 않는다. 일반 폭발 명령을 사용하지 않아 지형·화재를 만들지 않는다.
 
 Medi Gun은 같은 팀의 첫 조준 대상에만 작동한다. 12 블록(48 step) 한도, 차단 블록 검사, 20 tick 재사용 대기 뒤 `instant_health 1 0` 한 번을 사용한다. 활성 beam은 광선 step의 희소 입자다. 해당 ray가 동료를 얻으면 `tf_md_target=1`이 되어 자가치유를 건너뛴다. 대상이 없을 때만 독립 `tf_md_self` 40-tick timer로 `instant_health 1 0`을 자신에게 적용하므로 평균 2 HP/s이고 같은 tick에 양쪽을 치유하지 않는다.
 

@@ -59,6 +59,18 @@ for path in ROOT.rglob("*.mcfunction"):
             errors.append(f"stale per-tick proxy pattern in {path.relative_to(ROOT)}:{number}")
         if "tfmini_hitbox" in line and path.relative_to(ROOT).as_posix() not in {"data/tfmini/function/load.mcfunction", "data/tfmini/function/admin/reset.mcfunction"}:
             errors.append(f"hitbox arrows are only allowed in migration cleanup: {path.relative_to(ROOT)}:{number}")
+        if "minecraft:arrow" in line and "tfmini_rocket" in line:
+            errors.append(f"rockets must use markers, not arrows: {path.relative_to(ROOT)}:{number}")
+        if "execute on origin" in line:
+            errors.append(f"rocket ownership must use tf_player_id/tf_owner, not execute on origin: {path.relative_to(ROOT)}:{number}")
+
+rocket_files = list((ROOT / "data/tfmini/function/weapon/rocket").glob("*.mcfunction"))
+if any("Owner" in path.read_text(encoding="utf-8") for path in rocket_files):
+    errors.append("obsolete arrow Owner NBT remains in rocket functions")
+
+tick_function = (ROOT / "data/tfmini/function/tick.mcfunction").read_text(encoding="utf-8") if (ROOT / "data/tfmini/function/tick.mcfunction").exists() else ""
+if "type=minecraft:marker,tag=tfmini_rocket" not in tick_function:
+    errors.append("rocket tick must select tfmini_rocket markers")
 
 rocket_reload = (ROOT / "data/tfmini/function/weapon/rocket/reload.mcfunction").read_text(encoding="utf-8")
 rocket_shot = (ROOT / "data/tfmini/function/weapon/rocket/shot.mcfunction").read_text(encoding="utf-8")

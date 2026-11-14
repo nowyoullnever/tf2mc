@@ -1,8 +1,7 @@
-# `execute summon … run` makes @s this exact new projectile; no nearest-entity association is used.
+# `execute summon … run` makes @s this exact marker; no nearest-entity association is used.
 tag @s add tfmini_rocket
-data modify entity @s Owner set from entity @a[tag=tfmini_rocket_source,limit=1] UUID
+# Marker Rotation is the immutable direction captured at the firing instant.
 data modify entity @s Rotation set from entity @a[tag=tfmini_rocket_source,limit=1] Rotation
-data merge entity @s {NoGravity:1b,Silent:1b,Invulnerable:1b,pickup:0b,damage:0.0d}
 scoreboard players operation @s tf_owner = @a[tag=tfmini_rocket_source,limit=1] tf_player_id
 scoreboard players set @s tf_life 0
 scoreboard players set @s tf_exploded 0

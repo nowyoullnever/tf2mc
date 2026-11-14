@@ -4,7 +4,7 @@ Minecraft Java Edition **26.3**, 데이터팩 형식 **121.0**용 서버 전용 
 
 ## 설치
 
-1. `tf-mini-weapons-1.0.4.zip`을 월드의 `datapacks` 폴더에 압축을 풀지 않고 넣는다.
+1. `tf-mini-weapons-1.0.5.zip`을 월드의 `datapacks` 폴더에 압축을 풀지 않고 넣는다.
 2. 싱글플레이에서는 월드를 다시 열거나 `/reload`를 실행한다. Realms에서는 월드를 내려받아 `datapacks`에 넣은 뒤 월드를 다시 업로드한다.
 3. 채팅에 `[TF Mini] loaded`가 표시되는지 확인한다.
 4. 관리자는 `/team join RED <player>` 또는 `/team join BLU <player>`로 참가자를 배정한다.

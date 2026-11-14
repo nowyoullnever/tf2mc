@@ -63,3 +63,12 @@ Whilst parsing command on line 3: Unknown or incomplete command
 |V104-06|UNVERIFIED|F release, teammate 우선순위, self-heal 평균 2 HP/s를 실제 client에서 미계측|
 
 서버 로딩과 `/reload`은 명령 문법/참조 확인일 뿐 hitscan damage, healing 또는 particle의 게임 플레이 PASS가 아니다.
+
+## 1.0.5 marker rocket direction fix
+
+|항목|상태|근거|
+|---|---|---|
+|V105-01|PASS|`python tools/validate.py .` 통과, Mojang 공식 Java 26.3 dedicated server 시작 로드 및 RCON `reload` 응답 `Reloading!`, parse error 없음|
+|V105-02|UNVERIFIED|North/South/East/West/up/down 발사 방향, 직진성, 발사 뒤 mouse 이동 무시는 실제 client 관측 필요|
+|V105-03|UNVERIFIED|첫 벽/대상 충돌, 단 한 번 폭발, 동시 다발 marker 소유자 독립성은 실제 client 관측 필요|
+|V105-04|UNVERIFIED|muzzle 막힘 시 탄약·cooldown·reload 상태 보존은 실제 client 계측 필요|
