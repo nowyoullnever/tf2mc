@@ -1,5 +1,5 @@
-kill @e[type=minecraft:arrow,tag=tfmini_rocket]
-kill @e[type=minecraft:interaction,tag=tfmini_head]
+kill @e[type=minecraft:marker,tag=tfmini_rocket]
+kill @e[type=minecraft:arrow,tag=tfmini_hitbox]
 tag @a remove tfmini_ray_source
 tag @a remove tfmini_rocket_source
 tag @a remove tfmini_medic_target

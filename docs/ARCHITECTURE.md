@@ -14,18 +14,22 @@
 
 ## 광선과 피해
 
-미니건·스나이퍼는 눈 위치에서 0.25 블록씩 진행하는 재귀 함수다. 통과 블록 태그 외 블록 또는 첫 적 플레이어에서 즉시 종료한다. 사수는 짧은 실행 범위의 `tfmini_ray_source` 태그로 식별되므로 한 tick 안의 서로 다른 사격 상태가 점수판에 섞이지 않는다.
+미니건·스나이퍼는 눈 위치에서 0.25 블록씩 진행하는 재귀 함수다. 통과 블록 태그 외 블록 또는 첫 적 플레이어에서 즉시 종료한다. 사수는 짧은 실행 범위의 `tfmini_ray_source` 태그로 식별되므로 한 tick 안의 서로 다른 사격 상태가 점수판에 섞이지 않는다. 충돌 전의 같은 ray step에서만 `ray/tracer`를 호출한다. `tf_tracer_mod = tf_ray_step % #four` 또는 `% #two`로 각각 1블록/0.5블록 간격을 제어하며, 별도 raycast나 투사체 entity는 만들지 않는다.
 
-스나이퍼 헤드 판정은 플레이어 머리 중심(y + 1.53)에 매 tick 생성되는 0.58×0.50 `interaction` 히트박스와 광선의 0.33 반경 교차를 사용한다. 몸통은 0.48 반경 플레이어 충돌이다. 머리 히트박스는 3 tick 뒤 삭제된다.
+스나이퍼·Medic·로켓 충돌은 **엔티티를 생성하지 않는다**. 광선의 현재 sample 위치를 플레이어 feet 기준 높이(몸통 0.30/0.70/1.10/1.40, 머리 1.55/1.76)만큼 아래로 옮긴 뒤 `@a[distance=..0.32]`를 검사한다. standing head를 먼저, crouching head(1.25/1.45)를 다음으로, body를 마지막으로 검사한다. 선택된 실제 플레이어에게만 `tfmini_ray_target`을 잠시 부여하고 바로 피해·정리하므로, unrelated entity가 headshot을 바꾸지 않는다. 이전 tick 위치를 보관하는 proxy 자체가 없다.
+
+`#test_mode`가 1 이상인 동안만 이 충돌 뒤에 `type=minecraft:villager,tag=tfmini_test_dummy` 전용 선택자를 평가한다. 더미 전용 태그는 `tfmini_ray_dummy_target`이며, player `@a` 규칙과 일반 villager를 건드리지 않는다. body/head는 같은 feet-height sample을 사용하고, 로켓은 동일한 LOS recursion과 9/6/3 ring을 거쳐 tagged dummy에만 `/damage`를 적용한다.
 
 미니건 `tfmini:minigun`만 `minecraft:bypasses_cooldown` 태그에 추가해 4-tick 연사가 일반 피해 무적 시간에 막히지 않도록 설계했다. 다른 피해 유형의 쿨다운 태그는 바꾸지 않는다.
 
 ## 로켓과 치유
 
-로켓은 무중력 화살을 0.4 블록씩 두 번 이동시켜 0.8 블록/tick으로 만든다. 블록/적 직접 충돌 시 일반 폭발 명령을 사용하지 않고 입자·사운드와 명령 피해만 실행하므로 지형·화재를 만들지 않는다. 폭발 범위 후보마다 충돌점에서 대상 눈까지 0.25 블록 LOS 광선을 먼저 통과시킨다.
+로켓은 `execute summon … run`으로 방금 생성된 `minecraft:marker`에 즉시 팀·수명·발사자 ID와 shooter `Rotation`을 기록한다. marker Rotation은 이후 수정하지 않는다. 매 tick의 두 substep은 각각 `execute at @s run tp @s ^ ^ ^0.4`로 marker 자신의 고정 회전과 현재 위치를 사용하므로, 발사 뒤 사수의 카메라를 읽지 않는다. 각 이동·블록·대상 충돌 검사 전에도 `at @s`로 위치를 새로 잡는다. flame/smoke trail과 폭발도 marker의 실제 위치에서만 표시한다.
 
-Medi Gun은 같은 팀의 첫 조준 대상에만 작동한다. 12 블록(48 step) 한도, 차단 블록 검사, 20 tick 재사용 대기 뒤 `instant_health 1 0` 한 번을 사용한다. 활성 beam은 광선 step의 희소 입자다.
+`tf_owner`에는 발사 시점의 `tf_player_id`를 저장한다. 폭발 피해는 marker의 `tf_owner`와 online player의 `tf_player_id`가 같은 경우에만 해당 player를 `/damage ... by` source로 사용한다. arrow `Owner` NBT와 `execute on origin`에는 의존하지 않는다. 폭발 상태가 설정된 뒤 marker를 제거하므로 중복 폭발하지 않는다. 일반 폭발 명령을 사용하지 않아 지형·화재를 만들지 않는다.
+
+Medi Gun은 같은 팀의 첫 조준 대상에만 작동한다. 12 블록(48 step) 한도, 차단 블록 검사, 20 tick 재사용 대기 뒤 `instant_health 1 0` 한 번을 사용한다. 활성 beam은 광선 step의 희소 입자다. 해당 ray가 동료를 얻으면 `tf_md_target=1`이 되어 자가치유를 건너뛴다. 대상이 없을 때만 독립 `tf_md_self` 40-tick timer로 `instant_health 1 0`을 자신에게 적용하므로 평균 2 HP/s이고 같은 tick에 양쪽을 치유하지 않는다.
 
 ## 성능 경계
 
-피해 광선은 발사 중인 플레이어에게만, Medic 광선은 F를 누른 Medic에게만 실행된다. 로켓 수명은 100 tick/80 블록이며 각 로켓의 이동은 최대 두 substep이다. 실제 Realm MSPT/프로파일링 수치는 측정하지 않았다.
+피해 광선은 발사 중인 플레이어에게만, Medic 광선은 F를 누른 Medic에게만 실행된다. player hitbox entity가 0개이므로 기존의 초당 960회 arrow spawn/kill과 클라이언트 화살 artifact를 제거했다. 실제 Realm MSPT는 측정하지 않았으므로 성능 적합성을 주장하지 않는다. 로켓 수명은 100 tick/80 블록이며 각 로켓의 이동은 최대 두 substep이다.

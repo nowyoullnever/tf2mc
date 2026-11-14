@@ -12,6 +12,11 @@ scoreboard objectives add tf_sn_scope dummy
 scoreboard objectives add tf_rk_ammo dummy
 scoreboard objectives add tf_rk_cd dummy
 scoreboard objectives add tf_rk_reload dummy
+scoreboard objectives add tf_rk_fired dummy
+scoreboard objectives add tf_rk_muzzle dummy
+scoreboard objectives add tf_tracer_mod dummy
+scoreboard objectives add tf_md_self dummy
+scoreboard objectives add tf_md_target dummy
 scoreboard objectives add tf_md_heal dummy
 scoreboard objectives add tf_fire dummy
 scoreboard objectives add tf_player_id dummy
@@ -25,11 +30,32 @@ scoreboard objectives add tf_owner dummy
 scoreboard objectives add tf_team dummy
 scoreboard objectives add tf_life dummy
 scoreboard objectives add tf_los dummy
-scoreboard objectives add tf_head_age dummy
+scoreboard objectives add tf_los_hit dummy
+scoreboard objectives add tf_area_count dummy
 scoreboard objectives add tf_rk_damage dummy
-scoreboard players set #next_player tf_player_id 0
+scoreboard objectives add tf_sn_use dummy
+scoreboard objectives add tf_alive dummy
+scoreboard objectives add tf_deaths minecraft.custom:minecraft.deaths
+scoreboard objectives add tf_deaths_seen dummy
+scoreboard objectives add tf_exploded dummy
+scoreboard objectives add tf_move dummy
+scoreboard objectives add tf_px dummy
+scoreboard objectives add tf_py dummy
+scoreboard objectives add tf_pz dummy
+scoreboard objectives add tf_lpx dummy
+scoreboard objectives add tf_lpy dummy
+scoreboard objectives add tf_lpz dummy
+scoreboard objectives add tf_spread_y dummy
+# add 0 creates the fake player only when absent; never reset assigned player IDs on /reload.
+scoreboard players add #next_player tf_player_id 0
 scoreboard players set #six tf_ray_damage 6
 scoreboard players set #forty tf_ray_damage 40
+scoreboard players set #two tf_ray_step 2
+scoreboard players set #four tf_ray_step 4
+scoreboard players add #test_mode tf_debug 0
+# Migrate the prototype's short-lived proxies. Persistent proxies are recreated
+# before the next combat-input phase, so stale positions cannot be queried.
+kill @e[type=minecraft:arrow,tag=tfmini_hitbox]
 team add RED
 team add BLU
 team modify RED color red

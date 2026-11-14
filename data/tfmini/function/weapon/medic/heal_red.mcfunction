@@ -1,5 +1,5 @@
-execute as @a[team=RED,gamemode=!spectator,distance=0.7..0.72,sort=nearest,limit=1] run tag @s add tfmini_medic_target
-execute if entity @a[tag=tfmini_medic_target] run title @s actionbar {"text":"MEDIC | HEALING","color":"green"}
+execute if entity @a[tag=tfmini_medic_target] run title @s actionbar [{"text":"MEDIC | HEALING ","color":"green"},{"selector":"@a[tag=tfmini_medic_target,limit=1]","color":"white"}]
+execute if entity @a[tag=tfmini_medic_target] run scoreboard players set @s tf_md_target 1
 execute if score @s tf_md_heal matches 0 as @a[tag=tfmini_medic_target,limit=1] run effect give @s minecraft:instant_health 1 0 true
 execute if score @s tf_md_heal matches 0 run scoreboard players set @s tf_md_heal 20
 tag @a[tag=tfmini_medic_target] remove tfmini_medic_target
