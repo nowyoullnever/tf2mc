@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3 — 2026-11-14
+
+- Removed all player collision arrow/proxy creation and retained only migration cleanup for tagged legacy arrows.
+- Rebuilt Minigun, Sniper, Medic, rocket direct impact, and rocket LOS targeting around entity-free feet-height ray sampling.
+- Added standing/crouching head sampling and explicit player target tags for same-target headshot damage.
+
 ## 1.0.2 — 2026-11-14
 
 - Replaced per-tick, three-tick-retained player collision arrows with six persistent owner-bound probes per player.

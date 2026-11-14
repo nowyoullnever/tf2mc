@@ -1,3 +1,6 @@
-execute as @e[type=minecraft:arrow,tag=tfmini_hit_body,scores={tf_team=2},tag=!tfmini_explosion_probe_done,distance=2..3,sort=nearest,limit=1] run tag @s add tfmini_explosion_probe
-function tfmini:weapon/rocket/process_probe
-execute if entity @e[type=minecraft:arrow,tag=tfmini_hit_body,scores={tf_team=2},tag=!tfmini_explosion_probe_done,distance=2..3,limit=1] run function tfmini:weapon/rocket/area_red_3
+execute positioned ~ ~-1.10 ~ as @a[team=BLU,gamemode=!spectator,tag=!tfmini_explosion_done,distance=2..3,sort=nearest,limit=1] run tag @s add tfmini_explosion_target
+execute if entity @a[tag=tfmini_explosion_target] run function tfmini:weapon/rocket/los_start
+tag @a[tag=tfmini_explosion_target] add tfmini_explosion_done
+tag @a[tag=tfmini_explosion_target] remove tfmini_explosion_target
+scoreboard players add @s tf_area_count 1
+execute if score @s tf_area_count matches ..7 positioned ~ ~-1.10 ~ if entity @a[team=BLU,gamemode=!spectator,tag=!tfmini_explosion_done,distance=2..3,limit=1] run function tfmini:weapon/rocket/area_red_3

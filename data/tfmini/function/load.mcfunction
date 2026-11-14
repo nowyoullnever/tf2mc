@@ -27,6 +27,8 @@ scoreboard objectives add tf_owner dummy
 scoreboard objectives add tf_team dummy
 scoreboard objectives add tf_life dummy
 scoreboard objectives add tf_los dummy
+scoreboard objectives add tf_los_hit dummy
+scoreboard objectives add tf_area_count dummy
 scoreboard objectives add tf_rk_damage dummy
 scoreboard objectives add tf_sn_use dummy
 scoreboard objectives add tf_alive dummy
@@ -48,7 +50,6 @@ scoreboard players set #forty tf_ray_damage 40
 # Migrate the prototype's short-lived proxies. Persistent proxies are recreated
 # before the next combat-input phase, so stale positions cannot be queried.
 kill @e[type=minecraft:arrow,tag=tfmini_hitbox]
-tag @a remove tfmini_proxy_ready
 team add RED
 team add BLU
 team modify RED color red

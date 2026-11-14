@@ -57,6 +57,8 @@ for path in ROOT.rglob("*.mcfunction"):
             errors.append(f"invalid function identifier in {path.relative_to(ROOT)}:{number}")
         if "tfmini_new_proxy" in line:
             errors.append(f"stale per-tick proxy pattern in {path.relative_to(ROOT)}:{number}")
+        if "tfmini_hitbox" in line and path.relative_to(ROOT).as_posix() not in {"data/tfmini/function/load.mcfunction", "data/tfmini/function/admin/reset.mcfunction"}:
+            errors.append(f"hitbox arrows are only allowed in migration cleanup: {path.relative_to(ROOT)}:{number}")
 
 rocket_reload = (ROOT / "data/tfmini/function/weapon/rocket/reload.mcfunction").read_text(encoding="utf-8")
 rocket_shot = (ROOT / "data/tfmini/function/weapon/rocket/shot.mcfunction").read_text(encoding="utf-8")
@@ -65,9 +67,8 @@ if "tf_fire" in rocket_reload:
 if "tf_rk_fired" not in rocket_shot:
     errors.append("rocket shot does not set rocket-only reload interruption state")
 
-proxy_update = ROOT / "data/tfmini/function/player/proxy/update.mcfunction"
-if not proxy_update.is_file() or "tfmini_proxy_owner_online" not in proxy_update.read_text(encoding="utf-8"):
-    errors.append("persistent player-proxy owner cleanup is missing")
+if any((ROOT / "data/tfmini/function/player/proxy").glob("*.mcfunction")):
+    errors.append("obsolete player-proxy entity functions remain")
 
 fire = json.loads((ROOT / "data/tfmini/predicate/fire_held.json").read_text(encoding="utf-8")) if (ROOT / "data/tfmini/predicate/fire_held.json").exists() else {}
 if fire.get("type") != "minecraft:entity_properties" or fire.get("predicate", {}).get("minecraft:type_specific/player", {}).get("input", {}).get("sprint") is not True:

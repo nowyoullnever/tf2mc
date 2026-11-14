@@ -16,7 +16,7 @@
 
 미니건·스나이퍼는 눈 위치에서 0.25 블록씩 진행하는 재귀 함수다. 통과 블록 태그 외 블록 또는 첫 적 플레이어에서 즉시 종료한다. 사수는 짧은 실행 범위의 `tfmini_ray_source` 태그로 식별되므로 한 tick 안의 서로 다른 사격 상태가 점수판에 섞이지 않는다.
 
-스나이퍼·Medic·로켓 충돌은 각 플레이어의 몸통 4점(y + 0.30/0.70/1.10/1.40)과 머리 2점(y + 1.55/1.76)으로 구성한 **영구 owner-bound arrow probe**를 사용한다. 각 probe의 `Owner` UUID는 생성 플레이어에서 즉시 복사되며, 피해 시 `execute on origin`으로 동일 소유자만 선택한다. tick은 모든 플레이어의 proxy 위치·팀을 갱신하고, 소유자가 없는 proxy를 제거한 뒤에만 F 입력을 처리한다. 따라서 이전 tick 위치는 hitscan 후보가 아니다.
+스나이퍼·Medic·로켓 충돌은 **엔티티를 생성하지 않는다**. 광선의 현재 sample 위치를 플레이어 feet 기준 높이(몸통 0.30/0.70/1.10/1.40, 머리 1.55/1.76)만큼 아래로 옮긴 뒤 `@a[distance=..0.32]`를 검사한다. standing head를 먼저, crouching head(1.25/1.45)를 다음으로, body를 마지막으로 검사한다. 선택된 실제 플레이어에게만 `tfmini_ray_target`을 잠시 부여하고 바로 피해·정리하므로, unrelated entity가 headshot을 바꾸지 않는다. 이전 tick 위치를 보관하는 proxy 자체가 없다.
 
 미니건 `tfmini:minigun`만 `minecraft:bypasses_cooldown` 태그에 추가해 4-tick 연사가 일반 피해 무적 시간에 막히지 않도록 설계했다. 다른 피해 유형의 쿨다운 태그는 바꾸지 않는다.
 
@@ -28,4 +28,4 @@ Medi Gun은 같은 팀의 첫 조준 대상에만 작동한다. 12 블록(48 ste
 
 ## 성능 경계
 
-피해 광선은 발사 중인 플레이어에게만, Medic 광선은 F를 누른 Medic에게만 실행된다. proxy는 접속·활성 플레이어당 정확히 6개이므로 8명이라면 48개이며, 기존의 초당 960회 spawn/kill은 제거했다. 화살 proxy의 클라이언트 렌더링·실제 Realm MSPT는 측정하지 않았으므로 성능 적합성을 주장하지 않는다. 로켓 수명은 100 tick/80 블록이며 각 로켓의 이동은 최대 두 substep이다.
+피해 광선은 발사 중인 플레이어에게만, Medic 광선은 F를 누른 Medic에게만 실행된다. player hitbox entity가 0개이므로 기존의 초당 960회 arrow spawn/kill과 클라이언트 화살 artifact를 제거했다. 실제 Realm MSPT는 측정하지 않았으므로 성능 적합성을 주장하지 않는다. 로켓 수명은 100 tick/80 블록이며 각 로켓의 이동은 최대 두 substep이다.

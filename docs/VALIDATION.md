@@ -43,3 +43,10 @@ Whilst parsing command on line 3: Unknown or incomplete command
 |P1 rocket reload|FIXED (정적)|`tf_fire` 의존성을 제거하고 rocket-only `tf_rk_fired`로 바꿨다. 실제 hotbar 전환 시험은 UNVERIFIED.|
 |P1 first death|FIXED (정적)|`tf_deaths_seen=0`에서 시작하고 통계 점수가 최초 생성된 뒤에만 mirror를 갱신한다. 실제 사망/재접속은 UNVERIFIED.|
 |P1 muzzle clipping|FIXED (구조)|눈 앞 0.25/0.50/0.75 block을 검사해 막힌 경우 앞쪽으로 projectile를 소환하지 않는다. point-blank 폭발 체감은 UNVERIFIED.|
+
+## 1.0.3 visible hitbox arrow 수정
+
+- `tfmini_hitbox`를 만드는 함수와 persistent proxy 함수를 모두 제거했다.
+- `load`와 `admin/reset`의 `kill @e[type=minecraft:arrow,tag=tfmini_hitbox]`만 migration cleanup으로 남겼다. 태그 없는 일반 플레이어 화살은 선택하지 않는다.
+- 공식 26.3 서버에서 RCON `reload` 뒤 `execute if entity @e[type=minecraft:arrow,tag=tfmini_hitbox] run say stale_tfmini_hitbox`를 실행했다. 응답과 서버 채팅이 비어 있어 잔여 태그 화살은 없었다.
+- feet-height collision, head/body 피해, Medic target, rocket LOS는 파서 검증만 통과했다. 실제 클라이언트 combat·2–8인 성능은 UNVERIFIED다.
