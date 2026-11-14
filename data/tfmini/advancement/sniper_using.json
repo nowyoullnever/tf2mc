@@ -1,0 +1,5 @@
+{
+  "criteria":{"using_spyglass":{"trigger":"minecraft:using_item","conditions":{"item":{"items":"minecraft:spyglass","components":{"minecraft:custom_data":{"tfmini":{"weapon":"sniper"}}}}}}},
+  "requirements":[["using_spyglass"]],
+  "rewards":{"function":"tfmini:weapon/sniper/used"}
+}

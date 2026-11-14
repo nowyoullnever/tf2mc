@@ -1,0 +1,1 @@
+give @s minecraft:carrot_on_a_stick[minecraft:custom_name='{"text":"Medi Gun","italic":false,"color":"green"}',minecraft:lore=['{"text":"Hold Sprint (F) on a teammate","italic":false,"color":"gray"}'],minecraft:unbreakable={},minecraft:custom_data={tfmini:{weapon:"medic"}}]

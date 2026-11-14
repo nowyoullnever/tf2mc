@@ -1,0 +1,1 @@
+give @s minecraft:iron_hoe[minecraft:custom_name='{"text":"Rocket Launcher","italic":false,"color":"red"}',minecraft:lore=['{"text":"Hold Sprint (F) to fire","italic":false,"color":"gray"}'],minecraft:unbreakable={},minecraft:custom_data={tfmini:{weapon:"rocket"}}]

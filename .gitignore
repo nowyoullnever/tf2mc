@@ -1,0 +1,4 @@
+# Release archives remain local deliverables; source and documentation are tracked here.
+*.zip
+__pycache__/
+*.py[cod]

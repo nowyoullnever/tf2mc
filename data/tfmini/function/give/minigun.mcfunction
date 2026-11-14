@@ -1,0 +1,1 @@
+give @s minecraft:wooden_hoe[minecraft:custom_name='{"text":"Minigun","italic":false,"color":"gold"}',minecraft:lore=['{"text":"Hold Sprint (F) to fire","italic":false,"color":"gray"}'],minecraft:unbreakable={},minecraft:custom_data={tfmini:{weapon:"minigun"}}]

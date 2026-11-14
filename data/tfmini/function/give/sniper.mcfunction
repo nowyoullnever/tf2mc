@@ -1,0 +1,1 @@
+give @s minecraft:spyglass[minecraft:custom_name='{"text":"Sniper Rifle","italic":false,"color":"aqua"}',minecraft:lore=['{"text":"Right-click to scope; hold F to fire","italic":false,"color":"gray"}'],minecraft:custom_data={tfmini:{weapon:"sniper"}}]
