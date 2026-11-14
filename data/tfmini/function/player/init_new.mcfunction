@@ -16,6 +16,9 @@ scoreboard players set @s tf_rk_cd 0
 scoreboard players set @s tf_rk_reload 0
 scoreboard players set @s tf_rk_fired 0
 scoreboard players set @s tf_rk_muzzle 0
+scoreboard players set @s tf_tracer_mod 0
+scoreboard players set @s tf_md_self 0
+scoreboard players set @s tf_md_target 0
 scoreboard players set @s tf_md_heal 0
 scoreboard players set @s tf_fire 0
 scoreboard players set @s tf_debug 0

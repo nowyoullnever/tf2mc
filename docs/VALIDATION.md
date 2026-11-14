@@ -50,3 +50,16 @@ Whilst parsing command on line 3: Unknown or incomplete command
 - `load`와 `admin/reset`의 `kill @e[type=minecraft:arrow,tag=tfmini_hitbox]`만 migration cleanup으로 남겼다. 태그 없는 일반 플레이어 화살은 선택하지 않는다.
 - 공식 26.3 서버에서 RCON `reload` 뒤 `execute if entity @e[type=minecraft:arrow,tag=tfmini_hitbox] run say stale_tfmini_hitbox`를 실행했다. 응답과 서버 채팅이 비어 있어 잔여 태그 화살은 없었다.
 - feet-height collision, head/body 피해, Medic target, rocket LOS는 파서 검증만 통과했다. 실제 클라이언트 combat·2–8인 성능은 UNVERIFIED다.
+
+## 1.0.4 tracer · singleplayer dummy · Medi self-heal
+
+|항목|상태|근거|
+|---|---|---|
+|V104-01|PASS|`python tools/validate.py .` 구조·참조·objective 검사 통과|
+|V104-02|PASS|Mojang 공식 Java 26.3 dedicated server 시작 로드, RCON `reload` 응답 `Reloading!`, 로그상 datapack parse error 없음|
+|V104-03|UNVERIFIED|실제 client에서 Minigun/ Sniper tracer가 spread ray, 벽, 충돌 직전까지만 보이는지 미관측|
+|V104-04|UNVERIFIED|더미의 body/head 피해, 실제 Health 변화, 피격 무적 시간 상호작용 미관측|
+|V104-05|UNVERIFIED|더미 rocket direct/splash/cover/friendly-fire와 2–8인 동시 사격 미관측|
+|V104-06|UNVERIFIED|F release, teammate 우선순위, self-heal 평균 2 HP/s를 실제 client에서 미계측|
+
+서버 로딩과 `/reload`은 명령 문법/참조 확인일 뿐 hitscan damage, healing 또는 particle의 게임 플레이 PASS가 아니다.

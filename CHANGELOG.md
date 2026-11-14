@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.4 — 2026-11-14
+
+- Added wall-bounded, existing-ray Minigun (`crit`) and Sniper (`end_rod`) tracers with scoreboard-modulo density controls.
+- Added opt-in, tagged RED/BLU stationary villager test dummies; their Health can be read with `tfmini:test/status` and ordinary villagers are excluded.
+- Routed test dummy hits through separate hitscan body/head and rocket LOS/9-6-3 damage paths without changing normal PvP selectors.
+- Added optional no-teammate Medi Gun self-healing at 4 HP per 40 ticks (2 HP/s average).
+- Removed rocket jumping from the project test requirements; no Levitation substitute is implemented.
+
 ## 1.0.3 — 2026-11-14
 
 - Removed all player collision arrow/proxy creation and retained only migration cleanup for tagged legacy arrows.
@@ -20,7 +28,7 @@
 - Initialized deterministic player runtime state, preserved ID allocation across reloads, and added death-state cleanup.
 - Replaced feet-radius hits with owner-bound head/body collision probes; added per-weapon ray ranges and 2D spread.
 - Rebuilt rocket initialization through `execute summon … run`; incremental reload is now interrupted by firing.
-- Marked unverified/blocked mechanics accurately. Rocket jumping remains BLOCKED rather than using multi-second Levitation.
+- Recorded then-unverified mechanics accurately; no rocket-jump implementation was supplied.
 
 ## 1.0.0 — 2026-11-14
 

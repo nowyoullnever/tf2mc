@@ -8,6 +8,5 @@ execute if score @s tf_team matches 1 run function tfmini:weapon/rocket/damage_r
 execute if score @s tf_team matches 2 run function tfmini:weapon/rocket/damage_blu
 tag @s remove tfmini_rocket_damage_source
 execute on origin if entity @s[distance=..3] run damage @s 2 tfmini:rocket by @e[type=minecraft:arrow,tag=tfmini_rocket,distance=..0.1,limit=1]
-# Directional vanilla player impulse is not available through a supported command path.
-# Self-damage remains capped; rocket jump is explicitly BLOCKED in documentation.
+# Self-damage remains capped. This datapack has no rocket-jump mechanic.
 kill @s

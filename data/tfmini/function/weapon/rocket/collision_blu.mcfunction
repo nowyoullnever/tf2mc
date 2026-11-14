@@ -3,5 +3,10 @@ execute unless entity @a[tag=tfmini_rocket_direct_target] positioned ~ ~-1.40 ~ 
 execute unless entity @a[tag=tfmini_rocket_direct_target] positioned ~ ~-1.10 ~ as @a[team=BLU,gamemode=!spectator,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
 execute unless entity @a[tag=tfmini_rocket_direct_target] positioned ~ ~-0.70 ~ as @a[team=BLU,gamemode=!spectator,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
 execute unless entity @a[tag=tfmini_rocket_direct_target] positioned ~ ~-0.30 ~ as @a[team=BLU,gamemode=!spectator,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
-execute if entity @a[tag=tfmini_rocket_direct_target] run function tfmini:weapon/rocket/explode
-tag @a[tag=tfmini_rocket_direct_target] remove tfmini_rocket_direct_target
+execute if score #test_mode tf_debug matches 1.. unless entity @e[tag=tfmini_rocket_direct_target] positioned ~ ~-1.76 ~ as @e[type=minecraft:villager,tag=tfmini_test_dummy,team=BLU,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
+execute if score #test_mode tf_debug matches 1.. unless entity @e[tag=tfmini_rocket_direct_target] positioned ~ ~-1.40 ~ as @e[type=minecraft:villager,tag=tfmini_test_dummy,team=BLU,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
+execute if score #test_mode tf_debug matches 1.. unless entity @e[tag=tfmini_rocket_direct_target] positioned ~ ~-1.10 ~ as @e[type=minecraft:villager,tag=tfmini_test_dummy,team=BLU,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
+execute if score #test_mode tf_debug matches 1.. unless entity @e[tag=tfmini_rocket_direct_target] positioned ~ ~-0.70 ~ as @e[type=minecraft:villager,tag=tfmini_test_dummy,team=BLU,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
+execute if score #test_mode tf_debug matches 1.. unless entity @e[tag=tfmini_rocket_direct_target] positioned ~ ~-0.30 ~ as @e[type=minecraft:villager,tag=tfmini_test_dummy,team=BLU,distance=..0.32,sort=nearest,limit=1] run tag @s add tfmini_rocket_direct_target
+execute if entity @e[tag=tfmini_rocket_direct_target] run function tfmini:weapon/rocket/explode
+tag @e[tag=tfmini_rocket_direct_target] remove tfmini_rocket_direct_target

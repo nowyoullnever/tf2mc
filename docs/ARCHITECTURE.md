@@ -14,9 +14,11 @@
 
 ## 광선과 피해
 
-미니건·스나이퍼는 눈 위치에서 0.25 블록씩 진행하는 재귀 함수다. 통과 블록 태그 외 블록 또는 첫 적 플레이어에서 즉시 종료한다. 사수는 짧은 실행 범위의 `tfmini_ray_source` 태그로 식별되므로 한 tick 안의 서로 다른 사격 상태가 점수판에 섞이지 않는다.
+미니건·스나이퍼는 눈 위치에서 0.25 블록씩 진행하는 재귀 함수다. 통과 블록 태그 외 블록 또는 첫 적 플레이어에서 즉시 종료한다. 사수는 짧은 실행 범위의 `tfmini_ray_source` 태그로 식별되므로 한 tick 안의 서로 다른 사격 상태가 점수판에 섞이지 않는다. 충돌 전의 같은 ray step에서만 `ray/tracer`를 호출한다. `tf_tracer_mod = tf_ray_step % #four` 또는 `% #two`로 각각 1블록/0.5블록 간격을 제어하며, 별도 raycast나 투사체 entity는 만들지 않는다.
 
 스나이퍼·Medic·로켓 충돌은 **엔티티를 생성하지 않는다**. 광선의 현재 sample 위치를 플레이어 feet 기준 높이(몸통 0.30/0.70/1.10/1.40, 머리 1.55/1.76)만큼 아래로 옮긴 뒤 `@a[distance=..0.32]`를 검사한다. standing head를 먼저, crouching head(1.25/1.45)를 다음으로, body를 마지막으로 검사한다. 선택된 실제 플레이어에게만 `tfmini_ray_target`을 잠시 부여하고 바로 피해·정리하므로, unrelated entity가 headshot을 바꾸지 않는다. 이전 tick 위치를 보관하는 proxy 자체가 없다.
+
+`#test_mode`가 1 이상인 동안만 이 충돌 뒤에 `type=minecraft:villager,tag=tfmini_test_dummy` 전용 선택자를 평가한다. 더미 전용 태그는 `tfmini_ray_dummy_target`이며, player `@a` 규칙과 일반 villager를 건드리지 않는다. body/head는 같은 feet-height sample을 사용하고, 로켓은 동일한 LOS recursion과 9/6/3 ring을 거쳐 tagged dummy에만 `/damage`를 적용한다.
 
 미니건 `tfmini:minigun`만 `minecraft:bypasses_cooldown` 태그에 추가해 4-tick 연사가 일반 피해 무적 시간에 막히지 않도록 설계했다. 다른 피해 유형의 쿨다운 태그는 바꾸지 않는다.
 
@@ -24,7 +26,7 @@
 
 로켓은 `execute summon … run`으로 방금 생성된 무중력 화살에 즉시 소유자·팀·회전·수명을 기록한다. 0.4 블록씩 두 번 이동해 0.8 블록/tick으로 만들며, 폭발 상태가 설정된 뒤 제거되어 중복 이동·피해가 발생하지 않는다. 일반 폭발 명령을 사용하지 않아 지형·화재를 만들지 않는다.
 
-Medi Gun은 같은 팀의 첫 조준 대상에만 작동한다. 12 블록(48 step) 한도, 차단 블록 검사, 20 tick 재사용 대기 뒤 `instant_health 1 0` 한 번을 사용한다. 활성 beam은 광선 step의 희소 입자다.
+Medi Gun은 같은 팀의 첫 조준 대상에만 작동한다. 12 블록(48 step) 한도, 차단 블록 검사, 20 tick 재사용 대기 뒤 `instant_health 1 0` 한 번을 사용한다. 활성 beam은 광선 step의 희소 입자다. 해당 ray가 동료를 얻으면 `tf_md_target=1`이 되어 자가치유를 건너뛴다. 대상이 없을 때만 독립 `tf_md_self` 40-tick timer로 `instant_health 1 0`을 자신에게 적용하므로 평균 2 HP/s이고 같은 tick에 양쪽을 치유하지 않는다.
 
 ## 성능 경계
 

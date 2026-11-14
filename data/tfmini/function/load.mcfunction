@@ -14,6 +14,9 @@ scoreboard objectives add tf_rk_cd dummy
 scoreboard objectives add tf_rk_reload dummy
 scoreboard objectives add tf_rk_fired dummy
 scoreboard objectives add tf_rk_muzzle dummy
+scoreboard objectives add tf_tracer_mod dummy
+scoreboard objectives add tf_md_self dummy
+scoreboard objectives add tf_md_target dummy
 scoreboard objectives add tf_md_heal dummy
 scoreboard objectives add tf_fire dummy
 scoreboard objectives add tf_player_id dummy
@@ -47,6 +50,9 @@ scoreboard objectives add tf_spread_y dummy
 scoreboard players add #next_player tf_player_id 0
 scoreboard players set #six tf_ray_damage 6
 scoreboard players set #forty tf_ray_damage 40
+scoreboard players set #two tf_ray_step 2
+scoreboard players set #four tf_ray_step 4
+scoreboard players add #test_mode tf_debug 0
 # Migrate the prototype's short-lived proxies. Persistent proxies are recreated
 # before the next combat-input phase, so stale positions cannot be queried.
 kill @e[type=minecraft:arrow,tag=tfmini_hitbox]
