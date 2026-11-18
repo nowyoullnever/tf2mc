@@ -30,7 +30,9 @@ bossbar `tfmini:match_timer`는 RUNNING/PAUSED 때만 participant에게 보이�
 
 `#test_mode`가 1 이상인 동안만 이 충돌 뒤에 `type=minecraft:villager,tag=tfmini_test_dummy` 전용 선택자를 평가한다. 더미 전용 태그는 `tfmini_ray_dummy_target`이며, player `@a` 규칙과 일반 villager를 건드리지 않는다. body/head는 같은 feet-height sample을 사용하고, 로켓은 동일한 LOS recursion과 9/6/3 ring을 거쳐 tagged dummy에만 `/damage`를 적용한다.
 
-미니건 `tfmini:minigun`만 `minecraft:bypasses_cooldown` 태그에 추가해 4-tick 연사가 일반 피해 무적 시간에 막히지 않도록 설계했다. 다른 피해 유형의 쿨다운 태그는 바꾸지 않는다.
+v1.1.1은 커스텀 damage type registry와 `minecraft:bypasses_cooldown` 태그 파일을 제거했다. Minigun·Sniper는 `minecraft:player_attack`, Rocket은 `minecraft:player_explosion`을 `/damage ... by <shooter>`로 사용한다. Minigun의 4-tick 피해 명령은 바닐라 피해 무적 시간을 우회하지 않는다. 이는 spawn Resistance V·armor와 다른 월드의 일반 공격을 보존하는 안전한 선택이며, 실제 연사 DPS는 Health 계측이 필요하다.
+
+Sniper는 `tf_ray_damage`를 0.25 HP 단위로 보관한다. 발사 시 `charge × 24 / 40`으로 0–24 보너스 단위를 계산하고, body에는 30, head에는 45를 더한다. storage float 매크로가 최종 `minecraft:player_attack` 피해를 적용하므로 정수 열거 명령으로 반올림하지 않는다.
 
 ## 로켓과 치유
 

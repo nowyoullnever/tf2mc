@@ -1,7 +1,0 @@
-execute if score @s tf_ray_damage matches 8 run execute as @a[team=RED,distance=..0.48,sort=nearest,limit=1] run damage @s 8 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_damage matches 9 run execute as @a[team=RED,distance=..0.48,sort=nearest,limit=1] run damage @s 9 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_damage matches 10 run execute as @a[team=RED,distance=..0.48,sort=nearest,limit=1] run damage @s 10 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_damage matches 11 run execute as @a[team=RED,distance=..0.48,sort=nearest,limit=1] run damage @s 11 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_damage matches 12 run execute as @a[team=RED,distance=..0.48,sort=nearest,limit=1] run damage @s 12 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_damage matches 13 run execute as @a[team=RED,distance=..0.48,sort=nearest,limit=1] run damage @s 13 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_damage matches 14 run execute as @a[team=RED,distance=..0.48,sort=nearest,limit=1] run damage @s 14 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]

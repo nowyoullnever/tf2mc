@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.1-realms — 2026-11-18
+
+- Removed all custom damage-type registry files and the obsolete cooldown-bypass tag so the datapack does not register a dynamic damage type.
+- Converted Minigun and Sniper damage to `minecraft:player_attack`, and Rocket splash to `minecraft:player_explosion`, while retaining `/damage ... by` attribution.
+- Reworked Sniper damage to quarter-HP fixed point: body 7.5–13.5 HP and head 11.25–17.25 HP over 40 charge ticks.
+- Set datapack rocket self-damage to 0 HP; the separate Wind Charge proof-of-concept remains unintegrated.
+- Documented the vanilla Minigun immunity-frame limitation rather than modifying global vanilla damage tags.
+
 ## 1.1.0 — 2026-11-14
 
 - Added a global IDLE/RUNNING/PAUSED match state, macro-based 1–60 minute start command, countdown bossbar, participant gating, persistent roster markers, round kill/death baselines, team totals, and end results.

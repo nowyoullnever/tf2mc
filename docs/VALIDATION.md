@@ -84,3 +84,16 @@ Whilst parsing command on line 3: Unknown or incomplete command
 |V105-02|UNVERIFIED|North/South/East/West/up/down 발사 방향, 직진성, 발사 뒤 mouse 이동 무시는 실제 client 관측 필요|
 |V105-03|UNVERIFIED|첫 벽/대상 충돌, 단 한 번 폭발, 동시 다발 marker 소유자 독립성은 실제 client 관측 필요|
 |V105-04|UNVERIFIED|muzzle 막힘 시 탄약·cooldown·reload 상태 보존은 실제 client 계측 필요|
+
+## 1.1.1-realms 바닐라 피해 변환
+
+|항목|상태|근거|
+|---|---|---|
+|V111-01|PASS|`python tools/validate.py .` 통과. 세 custom damage registry JSON과 obsolete `bypasses_cooldown` tag가 없고, pack source의 옛 damage-type 식별자를 검사한다.|
+|V111-02|PASS|Mojang 공식 Java 26.3 dedicated server를 이 소스로 시작하고 RCON `reload`를 실행했다. `Failed to load function`, `Unknown or incomplete command`, `Error loading`, `Could not load` 로그가 없었다.|
+|V111-03|PASS|RCON storage에 `{amount:7.5f}`를 넣은 뒤 두 Sniper macro damage 함수를 실행했다. 함수가 정상 실행되어 소수점 damage 명령 확장 문법을 확인했다. 대상이 없었으므로 Health 변화는 이 항목에서 측정하지 않았다.|
+|V111-04|UNVERIFIED|D01–D16: 실제 survival player/dummy Health, armor, Resistance V, damage immunity, friendly-fire, 동시 공격, kill/death attribution을 client에서 측정하지 못했다.|
+|V111-05|UNVERIFIED|새 비실험 세계의 실험 설정 경고 부재는 실제 클라이언트 UI로 확인하지 못했다. source 구조상 custom damage registry는 제거됐다.|
+|V111-06|UNVERIFIED|승인된 test Realm이 없어 Realms 업로드를 수행하지 못했다.|
+
+V111-01~03은 Realms 또는 gameplay PASS가 아니다. 특히 Minigun은 바닐라 `minecraft:player_attack`의 피해 무적 시간을 우회하지 않으며, 실제 4-tick 명중당 Health 감소와 DPS는 V111-04에서만 판정한다.

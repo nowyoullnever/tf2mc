@@ -63,8 +63,10 @@ scoreboard objectives add tf_g_mm dummy
 scoreboard objectives add tf_g_ss dummy
 # add 0 creates the fake player only when absent; never reset assigned player IDs on /reload.
 scoreboard players add #next_player tf_player_id 0
-scoreboard players set #six tf_ray_damage 6
 scoreboard players set #forty tf_ray_damage 40
+scoreboard players set #twentyfour tf_ray_damage 24
+scoreboard players set #thirty tf_ray_damage 30
+scoreboard players set #fortyfive tf_ray_damage 45
 scoreboard players set #two tf_ray_step 2
 scoreboard players set #four tf_ray_step 4
 scoreboard players add #test_mode tf_debug 0

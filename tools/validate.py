@@ -14,12 +14,19 @@ errors: list[str] = []
 for required in ("pack.mcmeta", "data/minecraft/tags/function/load.json", "data/minecraft/tags/function/tick.json", "data/tfmini/function/load.mcfunction", "data/tfmini/function/tick.mcfunction", "data/tfmini/predicate/fire_held.json"):
     if not (ROOT / required).is_file(): errors.append(f"missing required file: {required}")
 
-for required_dir in ("data/tfmini/function/player", "data/tfmini/function/input", "data/tfmini/function/weapon/minigun", "data/tfmini/function/weapon/sniper", "data/tfmini/function/weapon/rocket", "data/tfmini/function/weapon/medic", "data/tfmini/function/ray", "data/tfmini/function/damage", "data/tfmini/function/ui", "data/tfmini/function/give", "data/tfmini/function/admin", "data/tfmini/function/test", "data/tfmini/damage_type", "data/tfmini/tags/block"):
+for required_dir in ("data/tfmini/function/player", "data/tfmini/function/input", "data/tfmini/function/weapon/minigun", "data/tfmini/function/weapon/sniper", "data/tfmini/function/weapon/rocket", "data/tfmini/function/weapon/medic", "data/tfmini/function/ray", "data/tfmini/function/damage", "data/tfmini/function/ui", "data/tfmini/function/give", "data/tfmini/function/admin", "data/tfmini/function/test", "data/tfmini/tags/block"):
     if not (ROOT / required_dir).is_dir(): errors.append(f"missing required directory: {required_dir}")
 
 for path in ROOT.rglob("*.json"):
     try: json.loads(path.read_text(encoding="utf-8"))
     except Exception as exc: errors.append(f"invalid JSON {path.relative_to(ROOT)}: {exc}")
+
+custom_damage_dir = ROOT / "data/tfmini/damage_type"
+if custom_damage_dir.exists() and any(custom_damage_dir.rglob("*.json")):
+    errors.append("custom damage_type registry entries must not remain")
+obsolete_bypass = ROOT / "data/minecraft/tags/damage_type/bypasses_cooldown.json"
+if obsolete_bypass.exists():
+    errors.append("obsolete custom bypasses_cooldown tag must not remain")
 
 try:
     meta = json.loads((ROOT / "pack.mcmeta").read_text(encoding="utf-8"))["pack"]
@@ -65,6 +72,12 @@ for path in ROOT.rglob("*.mcfunction"):
             errors.append(f"rockets must use markers, not arrows: {path.relative_to(ROOT)}:{number}")
         if "execute on origin" in line:
             errors.append(f"rocket ownership must use tf_player_id/tf_owner, not execute on origin: {path.relative_to(ROOT)}:{number}")
+        if re.search(r"tfmini:(minigun|sniper|rocket)\b", line):
+            errors.append(f"obsolete custom damage type reference in {path.relative_to(ROOT)}:{number}")
+
+for path in ROOT.rglob("*.json"):
+    if re.search(r'"tfmini:(minigun|sniper|rocket)"', path.read_text(encoding="utf-8")):
+        errors.append(f"obsolete custom damage type reference in {path.relative_to(ROOT)}")
 
 rocket_files = list((ROOT / "data/tfmini/function/weapon/rocket").glob("*.mcfunction"))
 if any("Owner" in path.read_text(encoding="utf-8") for path in rocket_files):

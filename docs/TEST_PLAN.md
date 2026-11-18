@@ -64,6 +64,27 @@
 2. North, South, East, West, straight up, straight down 각각에서 crosshair 방향과 같은 직선으로 이동하는지 확인한다. 발사 직후 mouse를 반대 방향으로 움직여도 궤도가 변하면 FAIL이다.
 3. 각 방향에서 벽과 enemy dummy를 따로 배치한다. 첫 solid block 또는 유효 target에서만 한 번 폭발해야 한다.
 4. 두 플레이어가 서로 다른 방향으로 동시에 발사한다. marker trail, 피해 귀속, RED/BLU friendly-fire 차단이 독립적인지 확인한다.
+
+## v1.1.1 Realms · 바닐라 피해 측정
+
+모든 피해 수치는 survival 모드 대상의 실제 `Health` NBT 또는 관찰 가능한 체력 바로 기록한다. 한 번의 명중 뒤에는 바닐라 피해 무적 시간이 끝날 때까지 기다린다. armor, Resistance, enchantment는 별도 조건으로 기록한다.
+
+|ID|절차|기대값|상태|
+|---|---|---|---|
+|D01|무방어 BLU 더미 몸통에 Minigun을 한 번만 명중|명령 기준 4 HP|UNVERIFIED|
+|D02|4 tick 간격 Minigun 연사 후 Health를 매 hit 기록|바닐라 무적 시간으로 실제 DPS 확인|UNVERIFIED|
+|D03|armor 대상에 D01 반복|armor 감소가 적용됨|UNVERIFIED|
+|D04|Resistance V 대상에 D01 반복|0 HP|UNVERIFIED|
+|D05/D06|Sniper body, charge 0/40|7.5 / 13.5 HP|UNVERIFIED|
+|D07/D08|Sniper head, charge 0/40|11.25 / 17.25 HP|UNVERIFIED|
+|D09/D10/D11|Rocket 착탄점에서 0–1/1–2/2–3 block|9 / 6 / 3 HP|UNVERIFIED|
+|D12|발사자만 rocket 폭발 범위에 둠|datapack self damage 0 HP|UNVERIFIED|
+|D13|같은 팀 player/dummy에 세 무기 사용|custom damage 0 HP|UNVERIFIED|
+|D14|Resistance V 대상에 세 무기 사용|0 HP|UNVERIFIED|
+|D15|각 무기로 적 player 처치|사수 kill·대상 death만 1 증가|UNVERIFIED|
+|D16|둘 이상이 동시에 같은 대상을 공격|중복/오귀속 없음|UNVERIFIED|
+
+새 비실험 Java 26.3 세계에서는 ZIP을 넣고 세계를 다시 연다. 실험 설정 경고가 없는지 클라이언트 화면에서 확인한 뒤 `/reload`를 실행한다. Realms 업로드는 승인된 시험 Realm에서만 수행하며 기존 사용자 월드는 사용하거나 덮어쓰지 않는다.
 5. 0.25, 0.50, 0.75 block 위치를 solid block으로 막고 F를 누른다. `tf_rk_ammo`, `tf_rk_cd`, `tf_rk_reload`가 발사 전 상태와 같아야 한다.
 
 ## 더미 단독 시험 명령
