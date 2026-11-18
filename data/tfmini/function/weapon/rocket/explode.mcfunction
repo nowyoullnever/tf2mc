@@ -6,7 +6,7 @@ execute at @s run playsound minecraft:entity.generic.explode master @a[distance=
 tag @s add tfmini_rocket_damage_source
 execute if score @s tf_team matches 1 run function tfmini:weapon/rocket/damage_red
 execute if score @s tf_team matches 2 run function tfmini:weapon/rocket/damage_blu
-execute at @s as @a if score @s tf_player_id = @e[tag=tfmini_rocket_damage_source,limit=1] tf_owner if entity @s[distance=..3] run damage @s 2 tfmini:rocket by @s
 tag @s remove tfmini_rocket_damage_source
-# Self-damage remains capped. This datapack has no rocket-jump mechanic.
+# Custom rocket self-damage is intentionally zero. This datapack has no
+# integrated rocket-jump mechanic; native wind-charge work remains a POC.
 kill @s

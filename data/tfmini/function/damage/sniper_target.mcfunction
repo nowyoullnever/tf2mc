@@ -1,14 +1,6 @@
-execute if score @s tf_ray_head matches 0 if score @s tf_ray_damage matches 8 as @a[tag=tfmini_ray_target,limit=1] run damage @s 8 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 0 if score @s tf_ray_damage matches 9 as @a[tag=tfmini_ray_target,limit=1] run damage @s 9 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 0 if score @s tf_ray_damage matches 10 as @a[tag=tfmini_ray_target,limit=1] run damage @s 10 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 0 if score @s tf_ray_damage matches 11 as @a[tag=tfmini_ray_target,limit=1] run damage @s 11 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 0 if score @s tf_ray_damage matches 12 as @a[tag=tfmini_ray_target,limit=1] run damage @s 12 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 0 if score @s tf_ray_damage matches 13 as @a[tag=tfmini_ray_target,limit=1] run damage @s 13 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 0 if score @s tf_ray_damage matches 14 as @a[tag=tfmini_ray_target,limit=1] run damage @s 14 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 1 if score @s tf_ray_damage matches 8 as @a[tag=tfmini_ray_target,limit=1] run damage @s 14 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 1 if score @s tf_ray_damage matches 9 as @a[tag=tfmini_ray_target,limit=1] run damage @s 15 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 1 if score @s tf_ray_damage matches 10 as @a[tag=tfmini_ray_target,limit=1] run damage @s 16 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 1 if score @s tf_ray_damage matches 11 as @a[tag=tfmini_ray_target,limit=1] run damage @s 17 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 1 if score @s tf_ray_damage matches 12 as @a[tag=tfmini_ray_target,limit=1] run damage @s 18 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 1 if score @s tf_ray_damage matches 13 as @a[tag=tfmini_ray_target,limit=1] run damage @s 19 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
-execute if score @s tf_ray_head matches 1 if score @s tf_ray_damage matches 14 as @a[tag=tfmini_ray_target,limit=1] run damage @s 20 tfmini:sniper by @a[tag=tfmini_ray_source,limit=1]
+# tf_ray_damage is the 0..24 charge bonus in quarter-HP units.
+# Body base is 30 (7.5 HP); head base is 45 (11.25 HP).
+execute if score @s tf_ray_head matches 0 run scoreboard players operation @s tf_ray_damage += #thirty tf_ray_damage
+execute if score @s tf_ray_head matches 1 run scoreboard players operation @s tf_ray_damage += #fortyfive tf_ray_damage
+execute store result storage tfmini:damage amount float 0.25 run scoreboard players get @s tf_ray_damage
+function tfmini:damage/sniper_target_apply with storage tfmini:damage
