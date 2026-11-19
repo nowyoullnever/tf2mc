@@ -10,8 +10,10 @@ execute unless score @s tf_pz = @s tf_lpz run scoreboard players set @s tf_move 
 scoreboard players operation @s tf_lpx = @s tf_px
 scoreboard players operation @s tf_lpy = @s tf_py
 scoreboard players operation @s tf_lpz = @s tf_pz
+execute if score @s tf_deaths > @s tf_deaths_seen if score @s tf_ff_timer matches 1.. run function tfmini:game/friendly_rocket_death
 execute if score @s tf_deaths > @s tf_deaths_seen run function tfmini:player/death_reset
 execute if score @s tf_deaths > @s tf_deaths_seen run scoreboard players operation @s tf_deaths_seen = @s tf_deaths
+execute if score @s tf_ff_timer matches 1.. run scoreboard players remove @s tf_ff_timer 1
 execute if score @s tf_mg_cd matches 1.. run scoreboard players remove @s tf_mg_cd 1
 execute if score @s tf_sn_cd matches 1.. run scoreboard players remove @s tf_sn_cd 1
 execute if score @s tf_rk_cd matches 1.. run scoreboard players remove @s tf_rk_cd 1

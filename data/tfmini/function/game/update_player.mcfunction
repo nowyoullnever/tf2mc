@@ -4,6 +4,7 @@ scoreboard players operation @s tf_g_round_k = @s tf_g_kills
 scoreboard players operation @s tf_g_round_k -= @s tf_g_base_k
 scoreboard players operation @s tf_g_round_d = @s tf_deaths
 scoreboard players operation @s tf_g_round_d -= @s tf_g_base_d
+scoreboard players operation #sync_ff tf_g_ff = @s tf_g_ff
 scoreboard players operation #sync_id tf_player_id = @s tf_player_id
 scoreboard players operation #sync_k tf_g_round_k = @s tf_g_round_k
 scoreboard players operation #sync_d tf_g_round_d = @s tf_g_round_d

@@ -8,6 +8,7 @@ scoreboard objectives add tf_sn_ammo dummy
 scoreboard objectives add tf_sn_cd dummy
 scoreboard objectives add tf_sn_reload dummy
 scoreboard objectives add tf_sn_charge dummy
+scoreboard objectives add tf_sn_units dummy
 scoreboard objectives add tf_sn_scope dummy
 scoreboard objectives add tf_rk_ammo dummy
 scoreboard objectives add tf_rk_cd dummy
@@ -32,6 +33,9 @@ scoreboard objectives add tf_life dummy
 scoreboard objectives add tf_los dummy
 scoreboard objectives add tf_los_hit dummy
 scoreboard objectives add tf_area_count dummy
+scoreboard objectives add tf_wind_life dummy
+scoreboard objectives add tf_ff_timer dummy
+scoreboard objectives add tf_ff_owner dummy
 scoreboard objectives add tf_rk_damage dummy
 scoreboard objectives add tf_sn_use dummy
 scoreboard objectives add tf_alive dummy
@@ -51,6 +55,7 @@ scoreboard objectives add tf_g_base_k dummy
 scoreboard objectives add tf_g_base_d dummy
 scoreboard objectives add tf_g_round_k dummy
 scoreboard objectives add tf_g_round_d dummy
+scoreboard objectives add tf_g_ff dummy
 scoreboard objectives add tf_g_team dummy
 scoreboard objectives add tf_g_participant dummy
 scoreboard objectives add tf_g_state dummy
@@ -67,9 +72,13 @@ scoreboard players set #forty tf_ray_damage 40
 scoreboard players set #twentyfour tf_ray_damage 24
 scoreboard players set #thirty tf_ray_damage 30
 scoreboard players set #fortyfive tf_ray_damage 45
+scoreboard players set #fiftyfour tf_ray_damage 54
 scoreboard players set #two tf_ray_step 2
 scoreboard players set #four tf_ray_step 4
 scoreboard players add #test_mode tf_debug 0
+scoreboard players add #wind_enabled tf_debug 0
+execute unless score #wind_initialized tf_debug matches 0.. run scoreboard players set #wind_enabled tf_debug 1
+execute unless score #wind_initialized tf_debug matches 0.. run scoreboard players set #wind_initialized tf_debug 1
 scoreboard players set #twenty tf_g_work 20
 scoreboard players set #onehundred tf_g_work 100
 scoreboard players set #twelvehundred tf_g_work 1200

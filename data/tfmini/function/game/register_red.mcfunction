@@ -6,6 +6,7 @@ scoreboard players operation @s tf_g_base_k = @s tf_g_kills
 scoreboard players operation @s tf_g_base_d = @s tf_deaths
 scoreboard players set @s tf_g_round_k 0
 scoreboard players set @s tf_g_round_d 0
+scoreboard players set @s tf_g_ff 0
 scoreboard players set @s tf_g_team 1
 scoreboard players set @s tf_g_participant 1
 function tfmini:game/reset_player

@@ -33,8 +33,8 @@ try:
     if meta.get("min_format") != [121, 0] or meta.get("max_format") != [121, 0]: errors.append("pack.mcmeta must pin min/max format to [121, 0]")
 except Exception as exc: errors.append(f"invalid pack metadata: {exc}")
 
-required_objectives = {"tf_init","tf_weapon","tf_mg_ammo","tf_mg_cd","tf_mg_reload","tf_sn_ammo","tf_sn_cd","tf_sn_reload","tf_sn_charge","tf_sn_scope","tf_sn_use","tf_rk_ammo","tf_rk_cd","tf_rk_reload","tf_rk_fired","tf_rk_muzzle","tf_md_heal","tf_md_self","tf_md_target","tf_fire","tf_player_id","tf_debug","tf_ray_step","tf_ray_hit","tf_ray_type","tf_ray_damage","tf_ray_head","tf_tracer_mod","tf_move","tf_px","tf_py","tf_pz","tf_lpx","tf_lpy","tf_lpz","tf_spread_y"}
-match_objectives = {"tf_g_kills","tf_g_base_k","tf_g_base_d","tf_g_round_k","tf_g_round_d","tf_g_team","tf_g_participant","tf_g_state","tf_g_timer","tf_g_total","tf_g_red","tf_g_blu","tf_g_work","tf_g_mm","tf_g_ss"}
+required_objectives = {"tf_init","tf_weapon","tf_mg_ammo","tf_mg_cd","tf_mg_reload","tf_sn_ammo","tf_sn_cd","tf_sn_reload","tf_sn_charge","tf_sn_units","tf_sn_scope","tf_sn_use","tf_rk_ammo","tf_rk_cd","tf_rk_reload","tf_rk_fired","tf_rk_muzzle","tf_md_heal","tf_md_self","tf_md_target","tf_fire","tf_player_id","tf_debug","tf_ray_step","tf_ray_hit","tf_ray_type","tf_ray_damage","tf_ray_head","tf_tracer_mod","tf_wind_life","tf_ff_timer","tf_ff_owner","tf_move","tf_px","tf_py","tf_pz","tf_lpx","tf_lpy","tf_lpz","tf_spread_y"}
+match_objectives = {"tf_g_kills","tf_g_base_k","tf_g_base_d","tf_g_round_k","tf_g_round_d","tf_g_ff","tf_g_team","tf_g_participant","tf_g_state","tf_g_timer","tf_g_total","tf_g_red","tf_g_blu","tf_g_work","tf_g_mm","tf_g_ss"}
 load = (ROOT / "data/tfmini/function/load.mcfunction").read_text(encoding="utf-8") if (ROOT / "data/tfmini/function/load.mcfunction").exists() else ""
 declared = set(re.findall(r"scoreboard objectives add ([a-z0-9_]+)", load))
 errors.extend(f"missing scoreboard declaration: {name}" for name in sorted(required_objectives - declared))
@@ -95,8 +95,12 @@ if "tf_rk_fired" not in rocket_shot:
     errors.append("rocket shot does not set rocket-only reload interruption state")
 
 rocket_explode = (ROOT / "data/tfmini/function/weapon/rocket/explode.mcfunction").read_text(encoding="utf-8")
-if "wind/trigger" in rocket_explode:
-    errors.append("unverified native wind burst must not be integrated before the standalone POC passes")
+if "wind/trigger" not in rocket_explode:
+    errors.append("rocket explosion must invoke the configurable native wind trigger")
+if "minecraft:player_explosion" not in (ROOT / "data/tfmini/function/weapon/rocket/apply_damage.mcfunction").read_text(encoding="utf-8"):
+    errors.append("rocket damage must retain minecraft:player_explosion")
+if "tfmini_rocket_self_target" not in (ROOT / "data/tfmini/function/weapon/rocket/apply_damage.mcfunction").read_text(encoding="utf-8"):
+    errors.append("rocket self damage must be separated from ordinary splash")
 
 if any((ROOT / "data/tfmini/function/player/proxy").glob("*.mcfunction")):
     errors.append("obsolete player-proxy entity functions remain")

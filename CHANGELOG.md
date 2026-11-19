@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 — 2026-11-20
+
+- Replaced RED/BLU-specific Rocket Launcher collision and splash scans with a common player scan: rocket friendly fire is enabled while Minigun, Sniper, and Medi Gun team behavior is unchanged.
+- Added fixed 3 HP owner-only rocket self damage and prevented the owner from receiving normal 9/6/3 splash simultaneously.
+- Added an optional native `minecraft:wind_charge` trigger at marker impact for an owner within 3 blocks, plus enable/disable and 10-tick cleanup. Client gameplay validation remains pending.
+- Reduced Minigun command cadence to 2 ticks; expanded Minigun/Sniper/Rocket/Medi ranges to 60/150/120/18 blocks.
+- Changed Sniper headshots to 13.5–21 HP using independent quarter-HP fixed-point charge units; body remains 7.5–13.5 HP.
+- Added match team-score subtraction for tracked friendly Rocket kills without editing vanilla personal K/D statistics.
+
 ## 1.1.1-realms — 2026-11-18
 
 - Removed all custom damage-type registry files and the obsolete cooldown-bypass tag so the datapack does not register a dynamic damage type.

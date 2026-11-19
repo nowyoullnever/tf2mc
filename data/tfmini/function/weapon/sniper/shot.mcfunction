@@ -4,6 +4,7 @@ scoreboard players set @s tf_sn_reload 30
 scoreboard players set @s tf_fire 1
 scoreboard players operation @s tf_ray_damage = @s tf_sn_charge
 execute unless score @s tf_sn_scope matches 1 run scoreboard players set @s tf_ray_damage 0
+scoreboard players operation @s tf_sn_units = @s tf_ray_damage
 scoreboard players operation @s tf_ray_damage *= #twentyfour tf_ray_damage
 scoreboard players operation @s tf_ray_damage /= #forty tf_ray_damage
 scoreboard players set @s tf_ray_type 2
