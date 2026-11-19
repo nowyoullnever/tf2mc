@@ -97,3 +97,16 @@ Whilst parsing command on line 3: Unknown or incomplete command
 |V111-06|UNVERIFIED|승인된 test Realm이 없어 Realms 업로드를 수행하지 못했다.|
 
 V111-01~03은 Realms 또는 gameplay PASS가 아니다. 특히 Minigun은 바닐라 `minecraft:player_attack`의 피해 무적 시간을 우회하지 않으며, 실제 4-tick 명중당 Health 감소와 DPS는 V111-04에서만 판정한다.
+
+## 1.2.0 weapon rebalance · friendly Rocket · Wind Charge
+
+|항목|상태|근거|
+|---|---|---|
+|V120-01|PASS|`python tools/validate.py .` 통과. 2-tick Minigun, 60/150/120/18 range limits, self splash 분리, vanilla damage type과 Wind trigger/function reference를 구조 검사했다.|
+|V120-02|PASS|공식 Java 26.3 server가 공통 Rocket collision/area, scoring, Wind Charge trigger를 `/reload`로 로드했다. reload 뒤 parse 오류가 없다.|
+|V120-03|PASS|RCON에서 `minecraft:wind_charge`를 동일 Motion/Tags NBT로 summon하고 Wind enable/disable, team-total 함수를 실행했다. 명령 파싱 및 tagged charge cleanup 경로를 확인했다.|
+|V120-04|UNVERIFIED|R01–R24의 survival Health, friendly self 3 HP, owner attribution, team-score subtraction, Minigun effective DPS, ranges, Resistance V, 2–8 player 성능은 client 관측이 없다.|
+|V120-05|UNVERIFIED|running Minecraft client가 Windows automation 대상에 없어서 Wind Charge burst, 실제 upward/horizontal movement, extra contact damage, residual entity, environment interaction을 관측하지 못했다.|
+|V120-06|UNVERIFIED|새 비실험 world UI와 Realms 업로드는 수행하지 못했다. custom damage registry는 여전히 없다.|
+
+V120-01~03은 rocket jumping 또는 gameplay PASS가 아니다. native Wind Charge가 실제 burst를 만들지 않거나 원치 않는 contact/environment effect가 보이면 `/function tfmini:weapon/rocket/wind/disable`로 wind propulsion을 끄고 Rocket damage만 사용할 수 있다.

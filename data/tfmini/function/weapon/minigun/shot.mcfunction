@@ -1,5 +1,5 @@
 scoreboard players remove @s tf_mg_ammo 1
-scoreboard players set @s tf_mg_cd 4
+scoreboard players set @s tf_mg_cd 2
 scoreboard players set @s tf_fire 1
 tag @s add tfmini_ray_source
 execute if score @s tf_move matches 0 run execute store result score @s tf_ray_damage run random value 0..4

@@ -9,7 +9,7 @@
 |A03|UNVERIFIED|F 홀드 중 `tf_fire`와 탄약 감소 관찰|
 |A04|UNVERIFIED|F 해제 직후 탄약 감소가 멈추는지 확인|
 |A05|UNVERIFIED|태그 없는 4개 바닐라 아이템이 작동하지 않는지 확인|
-|A06|UNVERIFIED|미니건 한 발마다 4 tick 간격인지 기록|
+|A06|UNVERIFIED|미니건 한 발마다 2 tick 간격인지 기록|
 |A07|UNVERIFIED|40발 뒤 정지하는지 확인|
 |A08|UNVERIFIED|빈 탄창부터 정확히 60 tick 후 40발인지 확인|
 |A09|UNVERIFIED|5단계 spread가 실제 탄착점에 반영되는지 확인|
@@ -72,19 +72,38 @@
 |ID|절차|기대값|상태|
 |---|---|---|---|
 |D01|무방어 BLU 더미 몸통에 Minigun을 한 번만 명중|명령 기준 4 HP|UNVERIFIED|
-|D02|4 tick 간격 Minigun 연사 후 Health를 매 hit 기록|바닐라 무적 시간으로 실제 DPS 확인|UNVERIFIED|
+|D02|2 tick 간격 Minigun 연사 후 Health를 매 hit 기록|바닐라 무적 시간으로 실제 DPS 확인|UNVERIFIED|
 |D03|armor 대상에 D01 반복|armor 감소가 적용됨|UNVERIFIED|
 |D04|Resistance V 대상에 D01 반복|0 HP|UNVERIFIED|
 |D05/D06|Sniper body, charge 0/40|7.5 / 13.5 HP|UNVERIFIED|
-|D07/D08|Sniper head, charge 0/40|11.25 / 17.25 HP|UNVERIFIED|
+|D07/D08|Sniper head, charge 0/40|13.5 / 21 HP|UNVERIFIED|
 |D09/D10/D11|Rocket 착탄점에서 0–1/1–2/2–3 block|9 / 6 / 3 HP|UNVERIFIED|
-|D12|발사자만 rocket 폭발 범위에 둠|datapack self damage 0 HP|UNVERIFIED|
+|D12|발사자만 rocket 폭발 범위에 둠|datapack self damage 3 HP|UNVERIFIED|
 |D13|같은 팀 player/dummy에 세 무기 사용|custom damage 0 HP|UNVERIFIED|
 |D14|Resistance V 대상에 세 무기 사용|0 HP|UNVERIFIED|
 |D15|각 무기로 적 player 처치|사수 kill·대상 death만 1 증가|UNVERIFIED|
 |D16|둘 이상이 동시에 같은 대상을 공격|중복/오귀속 없음|UNVERIFIED|
 
 새 비실험 Java 26.3 세계에서는 ZIP을 넣고 세계를 다시 연다. 실험 설정 경고가 없는지 클라이언트 화면에서 확인한 뒤 `/reload`를 실행한다. Realms 업로드는 승인된 시험 Realm에서만 수행하며 기존 사용자 월드는 사용하거나 덮어쓰지 않는다.
+
+## v1.2.0 rebalance · rocket friendly fire · Wind Charge
+
+|ID|절차|기대값|상태|
+|---|---|---|---|
+|R01–R03|RED/BLU rocket으로 enemy 및 teammate를 각각 0–1 block에서 명중|각 9 HP before mitigation|UNVERIFIED|
+|R04–R06|사수의 0–3/3+ block self splash|3 HP 한 번 / 0 HP|UNVERIFIED|
+|R07/R08|ground/wall impact를 사수 3 block 안에서 발생|실제 native vertical/horizontal wind impulse|UNVERIFIED|
+|R09|R07에서 Health를 실제 NBT로 전후 기록|총 direct self damage 3 HP target, extra native contact damage 없음|UNVERIFIED|
+|R10|동시 2개 이상 rocket|owner, self 3 HP, explosion 한 번, cleanup 독립|UNVERIFIED|
+|R11|Minigun 40 shots 입력 tick 기록|2 tick interval, 약 4초 magazine empty|UNVERIFIED|
+|R12–R15|Minigun/Sniper/Rocket/Medi 최대거리|60/150/120/18 block|UNVERIFIED|
+|R16–R19|Sniper charge 0/40 body/head Health|7.5/13.5 body, 13.5/21 head|UNVERIFIED|
+|R20|friendly rocket kill 뒤 match total과 personal K/D|personal vanilla K/D 기록, team point +0|UNVERIFIED|
+|R21/R22|Minigun/Sniper friendly fire 및 Resistance V|0 HP / 모든 무기 0 HP|UNVERIFIED|
+|R23|door, trapdoor, button, lever, fence gate, bell, decoration 근처 wind burst|실제 환경 상호작용 기록|UNVERIFIED|
+|R24|2/4/8 player 동시 사격|attribution, state, MSPT/TPS 기록|UNVERIFIED|
+
+Wind propulsion만 끄려면 `/function tfmini:weapon/rocket/wind/disable`, 다시 켜려면 `/function tfmini:weapon/rocket/wind/enable`을 사용한다. 두 명령은 Rocket damage, ammunition, reload를 바꾸지 않는다.
 5. 0.25, 0.50, 0.75 block 위치를 solid block으로 막고 F를 누른다. `tf_rk_ammo`, `tf_rk_cd`, `tf_rk_reload`가 발사 전 상태와 같아야 한다.
 
 ## 더미 단독 시험 명령

@@ -4,7 +4,7 @@ Minecraft Java Edition **26.3**, 데이터팩 형식 **121.0**용 서버 전용 
 
 ## 설치
 
-1. `tf-mini-weapons-1.1.1-realms.zip`을 월드의 `datapacks` 폴더에 압축을 풀지 않고 넣는다.
+1. `tf-mini-weapons-1.2.0.zip`을 월드의 `datapacks` 폴더에 압축을 풀지 않고 넣는다.
 2. 싱글플레이에서는 월드를 다시 열거나 `/reload`를 실행한다. Realms에서는 월드를 내려받아 `datapacks`에 넣은 뒤 월드를 다시 업로드한다. 기존 실험 설정 세계의 메타데이터는 이 팩이 자동으로 변경하지 않으므로, 새 비실험 세계에서 먼저 확인한다.
 3. 채팅에 `[TF Mini] loaded`가 표시되는지 확인한다.
 4. 관리자는 `/team join RED <player>` 또는 `/team join BLU <player>`로 참가자를 배정한다.
@@ -37,7 +37,7 @@ Minecraft Java Edition **26.3**, 데이터팩 형식 **121.0**용 서버 전용 
 
 `start`는 1–60 정수 분만 받고, RED·BLU의 비관전자 참가자가 각각 한 명 이상 있어야 한다. 매치 중에는 시작 시 등록된 participant만 datapack 무기를 쓸 수 있다. 시작 시 cooldown/reload/charge 같은 transient state만 초기화하며 ammunition, inventory, 위치, vanilla lifetime statistic은 바꾸지 않는다. pause는 timer, 무기 입력·cooldown·reload, Medi Gun, marker rocket 이동/충돌을 함께 멈춘다. `/reload`는 global state와 남은 tick을 보존한다.
 
-Wind Charge rocket jump은 아직 Rocket Launcher에 연결되지 않았다. `/function tfmini:weapon/rocket/wind/poc`는 실제 native Wind Charge 충돌을 관측하기 위한 독립 실험이며, survival client knockback 검증 전에는 match combat에 영향을 주지 않는다.
+Rocket Launcher는 RED/BLU 구분 없이 플레이어를 폭발 대상으로 선택한다. 사수는 일반 9/6/3 splash에서 제외되고, 3블록 이내일 때만 별도 3 HP self-damage를 한 번 받는다. `/function tfmini:weapon/rocket/wind/disable`은 Rocket damage를 끄지 않고 native Wind Charge propulsion만 비활성화한다. `/function tfmini:weapon/rocket/wind/enable`로 다시 켠다. 실제 survival rocket jump과 블록 상호작용은 아직 UNVERIFIED다.
 
 ## 싱글플레이 더미와 측정
 
@@ -45,7 +45,7 @@ Wind Charge rocket jump은 아직 Rocket Launcher에 연결되지 않았다. `/f
 - `/function tfmini:test/status` — 각 더미의 실제 `Health` NBT를 채팅/콘솔에 출력한다.
 - `/function tfmini:test/remove_dummies` — 태그된 시험 더미만 제거하고 더미 충돌 경로를 끈다.
 
-더미는 `tfmini_test_dummy` 태그가 있는 villager만 선택한다. 일반 villager는 절대 표적이 아니다. 관측한 Health 감소는 바닐라 피해 무적 시간, armor/effect, `/damage` 규칙의 영향을 받을 수 있다. v1.1.1에서는 모든 무기가 바닐라 피해 타입을 사용하므로 특히 Minigun의 4-tick 반복 명중은 무적 시간으로 실제 피해가 생략될 수 있다. 이를 우회하기 위해 전역 피해 태그·Health NBT·최대 체력을 바꾸지 않는다.
+더미는 `tfmini_test_dummy` 태그가 있는 villager만 선택한다. 일반 villager는 절대 표적이 아니다. 관측한 Health 감소는 바닐라 피해 무적 시간, armor/effect, `/damage` 규칙의 영향을 받을 수 있다. 모든 무기가 바닐라 피해 타입을 사용하므로 특히 Minigun의 2-tick 반복 명중은 무적 시간으로 실제 피해가 생략될 수 있다. 이를 우회하기 위해 전역 피해 태그·Health NBT·최대 체력을 바꾸지 않는다.
 
 ## 시각 탄도와 Medi Gun 자가치유
 

@@ -26,6 +26,8 @@
 /function tfmini:weapon/rocket/wind/poc
 /function tfmini:weapon/rocket/wind/debug
 /function tfmini:weapon/rocket/wind/cleanup
+/function tfmini:weapon/rocket/wind/enable
+/function tfmini:weapon/rocket/wind/disable
 ```
 
-`wind/poc`는 충돌을 유도하는 native `minecraft:wind_charge`를 생성한다. 이것은 wind burst 구현 증명이 아니다. survival client에서 실제 burst, knockback, cleanup을 관측한 뒤에만 Rocket Launcher 연결을 검토한다.
+v1.2.0 Rocket Launcher는 사수가 3 block 안일 때 marker impact 위치에서 native `minecraft:wind_charge`를 trigger한다. `disable`은 이 propulsion만 끄고 Rocket damage·self damage·reload·ammo를 유지한다. `wind/poc`는 별도 재현용 experiment다. survival client에서 burst, knockback, cleanup, block interaction은 아직 PASS가 아니다.

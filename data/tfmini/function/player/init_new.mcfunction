@@ -10,6 +10,7 @@ scoreboard players set @s tf_mg_reload 0
 scoreboard players set @s tf_sn_cd 0
 scoreboard players set @s tf_sn_reload 0
 scoreboard players set @s tf_sn_charge 0
+scoreboard players set @s tf_sn_units 0
 scoreboard players set @s tf_sn_scope 0
 scoreboard players set @s tf_sn_use 0
 scoreboard players set @s tf_rk_cd 0
@@ -27,6 +28,9 @@ scoreboard players set @s tf_ray_hit 0
 scoreboard players set @s tf_ray_type 0
 scoreboard players set @s tf_ray_damage 0
 scoreboard players set @s tf_ray_head 0
+scoreboard players set @s tf_ff_timer 0
+scoreboard players set @s tf_ff_owner 0
+scoreboard players set @s tf_wind_life 0
 scoreboard players set @s tf_alive 1
 # Statistics can be absent until their first event. Start the mirror at an
 # explicit zero; the first generated death score then triggers exactly once.
@@ -43,6 +47,7 @@ scoreboard players set @s tf_g_base_k 0
 scoreboard players set @s tf_g_base_d 0
 scoreboard players set @s tf_g_round_k 0
 scoreboard players set @s tf_g_round_d 0
+scoreboard players set @s tf_g_ff 0
 scoreboard players set @s tf_g_team 0
 scoreboard players set @s tf_g_participant 0
 execute store result score @s tf_lpx run data get entity @s Pos[0] 100
