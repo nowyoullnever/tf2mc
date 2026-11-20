@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 — 2026-11-20
+
+- Changed only the Minigun command cooldown from 4 ticks to 2 ticks. Damage command amount, magazine, reload, range, vanilla damage type, team filtering, and all Rocket/Sniper/Medi systems are unchanged from v1.1.1-realms.
+
 ## 1.1.1-realms — 2026-11-18
 
 - Removed all custom damage-type registry files and the obsolete cooldown-bypass tag so the datapack does not register a dynamic damage type.
